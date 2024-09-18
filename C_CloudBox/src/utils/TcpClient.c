@@ -5,55 +5,46 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
 
-#define BUFFER_SIZE 256
-#define PORT 3490
-
-int main(void) {
-    int sock;
-    struct sockaddr_in server_addr;
-    char buffer[BUFFER_SIZE];
-
-    // 创建套接字
-    if ((sock = socket(AF_INET, SOCK_STREAM, 0)) == -1) {
-        perror("socket");
-        exit(EXIT_FAILURE);
-    }
-
-    // 填充服务器地址结构
-    server_addr.sin_family = AF_INET;
-    server_addr.sin_port = htons(PORT);
-    server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
-
-    // 连接到服务器
-    if (connect(sock, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1) {
-        perror("connect");
-        exit(EXIT_FAILURE);
-    }
-
-    // 发送数据给服务器
-    printf("Enter message to send to the server:\n");
-    fgets(buffer, BUFFER_SIZE, stdin);
-    send(sock, buffer, strlen(buffer), 0);
-
-    // 接收来自服务器的数据
-    memset(buffer, '\0', BUFFER_SIZE);
-    recv(sock, buffer, BUFFER_SIZE - 1, 0);
-    printf("Received from server: %s", buffer);
-
-    close(sock);
-    return 0;
-}
-
-
-// #include <sys/socket.h>
-void *TCP_Create_Socket()
+void *TCP_Create_Client()
 {
+    // 创建套接字
     int sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd != 0)
     {
         perror("创建 TCP_Socket 失败!");
     }
 
+    // 填充服务器地址结构
+    struct sockaddr_in server_addr;
+    server_addr.sin_family = AF_INET;
+    server_addr.sin_port = htons(3490);
+    server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
+
+    // 将 IPv4 地址从文本转换成二进制形式
+    if (inet_pton(AF_INET, "127.0.0.1", &server_addr.sin_addr))
+    {
+        fprintf(stderr, "inet_pton() 失败!\n");
+    }
+
+    // 连接服务端
+    if (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)))
+    {
+        fprintf(stderr, "连接服务器失败!\n");
+        exit(EXIT_FAILURE);
+    }
+
+    // 发送数据
+    char sen_buffer[18] = "Hello from client";
+    send(sockfd, sen_buffer, strlen(sen_buffer), 0);
+
+    // 接收数据
+    char rec_buffer[18] = {0};
+    recv(sockfd, rec_buffer, 17, 0);
+    printf("Received from server: %s", rec_buffer);
+
+    // 关闭套接字
+    close(sockfd);
 }
