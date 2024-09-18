@@ -1,0 +1,1 @@
+/usr/bin/cc -g CMakeFiles/C_Srs.dir/main.c.o -o C_Srs  -Wl,-rpath,/home/wyw/soft/ffmpeg/lib /home/wyw/soft/ffmpeg/lib/libavcodec.so /home/wyw/soft/ffmpeg/lib/libavformat.so /home/wyw/soft/ffmpeg/lib/libavutil.so 

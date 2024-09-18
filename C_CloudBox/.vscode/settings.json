@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "mqclient.h": "c",
+        "errno.h": "c",
+        "socket.h": "c",
+        "fcntl.h": "c",
+        "stdio.h": "c",
+        "inet.h": "c",
+        "unistd.h": "c",
+        "string.h": "c",
+        "stdlib.h": "c"
+    }
+}
