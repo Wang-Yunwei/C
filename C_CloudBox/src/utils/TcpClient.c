@@ -11,12 +11,35 @@
 
 #include "../include/Utils.h"
 
-#define HEARTBEAT_INTERVAL 5 // 心跳间隔（秒）
+#define HEARTBEAT_INTERVAL 5 // 心跳间隔 (秒)
+
+int sockfd;
+
+// 关闭套接字
+void TCP_Client_Close()
+{
+    close(sockfd);
+}
+
+// 发送数据 char sen_buffer[18] = "Hello from client";
+void TCP_Client_Send(char *sen_buffer)
+{
+    send(sockfd, sen_buffer, strlen(sen_buffer), 0);
+}
+
+// 接收数据
+void TCP_Client_Receive()
+{
+    char rec_buffer[18] = {0};
+    memset(rec_buffer, '\0', 18); // 用来在接收数据之前清空 buffer
+    recv(sockfd, rec_buffer, 17, 0);
+    printf("Received from server: %s", rec_buffer);
+}
 
 void *TCP_Create_Client()
 {
     // 创建套接字
-    int sockfd = socket(AF_INET, SOCK_STREAM, 0);
+    sockfd = socket(AF_INET, SOCK_STREAM, 0);
     if (sockfd < 0)
     {
         perror("创建 TCP_Socket 失败!");
@@ -50,17 +73,4 @@ void *TCP_Create_Client()
             last_heartbeat = current_time;
         }
     }
-
-    // 发送数据
-    char sen_buffer[18] = "Hello from client";
-    send(sockfd, sen_buffer, strlen(sen_buffer), 0);
-
-    // 接收数据
-    char rec_buffer[18] = {0};
-    memset(rec_buffer, '\0', 18); // 用来在接收数据之前清空 buffer
-    recv(sockfd, rec_buffer, 17, 0);
-    printf("Received from server: %s", rec_buffer);
-
-    // 关闭套接字
-    close(sockfd);
 }

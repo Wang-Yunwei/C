@@ -17,7 +17,7 @@ void startMqtt()
         fprintf(stderr, "Error creating thread\n");
         return;
     }
-    // 主线程休眠一会等待子线程结束
+    // 主线程休眠一会
     sleep(3);
     char *str = "Hello This is a test message!";
     if (MQTT_v5_publish(str))
@@ -31,23 +31,33 @@ void startMqtt()
     pthread_join(thread_id_mqtt, NULL);
 }
 
-void main()
+void startTcp()
 {
-    printf("========= Main Function Start! =========\n");
-    
     pthread_t thread_id_tcp_server;
     pthread_create(&thread_id_tcp_server, NULL, TCP_Create_Server, NULL);
-    
+
     sleep(3);
 
     pthread_t thread_id_tcp_client;
     pthread_create(&thread_id_tcp_client, NULL, TCP_Create_Client, NULL);
 
-    //等待子线程结束
+    // 等待子线程结束
     // pthread_join(thread_id_tcp_client, NULL);
     pthread_join(thread_id_tcp_server, NULL);
+}
+
+void test(char *str){
+    printf("%s\n",str);
+    // printf(str);
+}
+
+void main()
+{
+    printf("========= Main Function Start! =========\n");
 
 
+
+    test("Hello World!");
 
     printf("========= Main Function End! =========\n");
 }
