@@ -38,14 +38,14 @@ void *TCP_Create_Server()
     server_addr.sin_family = AF_INET;
     server_addr.sin_port = htons(PORT);
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
-    if (bind(socketfd, (struct sockaddr *)&server_addr, sizeof(server_addr)) == -1)
+    if (bind(socketfd, (struct sockaddr *)&server_addr, sizeof(server_addr)))
     {
         perror("bind");
         exit(EXIT_FAILURE);
     }
 
     // 监听连接
-    if (listen(socketfd, MAX_CONNECTIONS) == -1)
+    if (listen(socketfd, MAX_CONNECTIONS))
     {
         perror("listen");
         exit(EXIT_FAILURE);
@@ -105,5 +105,4 @@ void *TCP_Create_Server()
             }
         }
     }
-
 }

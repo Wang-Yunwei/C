@@ -35,7 +35,17 @@ void main()
 {
     printf("========= Main Function Start! =========\n");
     
+    pthread_t thread_id_tcp_server;
+    pthread_create(&thread_id_tcp_server, NULL, TCP_Create_Server, NULL);
     
+    sleep(3);
+
+    pthread_t thread_id_tcp_client;
+    pthread_create(&thread_id_tcp_client, NULL, TCP_Create_Client, NULL);
+
+    //等待子线程结束
+    // pthread_join(thread_id_tcp_client, NULL);
+    pthread_join(thread_id_tcp_server, NULL);
 
 
 
