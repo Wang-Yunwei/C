@@ -1,8 +1,4 @@
-/**/build/*
-/C_CloudBox/build
-
-
 .idea
 .vscode
-C_CloudBox/build/Makefile
+
 C_CloudBox/build/*
