@@ -6,7 +6,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/socket.h>
-#include <netinet/in.h>
+#include <arpa/inet.h>
+
+#include "../include/Utils.h"
 
 void *TCP_Create_Client()
 {
@@ -23,13 +25,7 @@ void *TCP_Create_Client()
     server_addr.sin_port = htons(3490);
     server_addr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
-    // 将 IPv4 地址从文本转换成二进制形式
-    if (inet_pton(AF_INET, "127.0.0.1", &server_addr.sin_addr))
-    {
-        fprintf(stderr, "inet_pton() 失败!\n");
-    }
-
-    // 连接服务端
+    // 连接到服务器
     if (connect(sockfd, (struct sockaddr *)&server_addr, sizeof(server_addr)))
     {
         fprintf(stderr, "连接服务器失败!\n");

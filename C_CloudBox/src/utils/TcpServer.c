@@ -8,6 +8,8 @@
 #include <arpa/inet.h>
 #include <sys/select.h>
 
+#include "../include/Utils.h"
+
 #define MAX_CONNECTIONS 5
 #define BUFFER_SIZE 256
 #define PORT 3490

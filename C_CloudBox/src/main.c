@@ -7,10 +7,8 @@
 
 #include "include/Utils.h"
 
-void main()
+void startMqtt()
 {
-    printf("========= Main Function Start! =========\n");
-    
     /* --------- Start _ MQTT ---------*/
 
     pthread_t thread_id_mqtt;
@@ -29,10 +27,15 @@ void main()
 
     /* --------- Start _ UDP ---------*/
 
-    
-
     // 等待子线程结束
     pthread_join(thread_id_mqtt, NULL);
+}
+
+void main()
+{
+    printf("========= Main Function Start! =========\n");
+    
+    
 
 
 

@@ -4,7 +4,7 @@
 # compile C with /usr/bin/gcc
 C_DEFINES = 
 
-C_INCLUDES = -I/home/wyw/workspace/C_CloudBox/resource/mosquitto/include -I/home/wyw/workspace/C_CloudBox/resource/ffmpeg/include
+C_INCLUDES = -I/home/wyw/workspace/C/C_CloudBox/resource/mosquitto/include -I/home/wyw/workspace/C/C_CloudBox/resource/ffmpeg/include
 
 C_FLAGS = -g
 

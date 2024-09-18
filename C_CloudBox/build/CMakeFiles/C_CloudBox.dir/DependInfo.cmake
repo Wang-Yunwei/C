@@ -8,9 +8,11 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/wyw/workspace/C_CloudBox/src/main.c" "CMakeFiles/C_CloudBox.dir/src/main.c.o" "gcc" "CMakeFiles/C_CloudBox.dir/src/main.c.o.d"
-  "/home/wyw/workspace/C_CloudBox/src/utils/FFmpegClient.c" "CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o" "gcc" "CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o.d"
-  "/home/wyw/workspace/C_CloudBox/src/utils/MQClient.c" "CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o" "gcc" "CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o.d"
+  "/home/wyw/workspace/C/C_CloudBox/src/main.c" "CMakeFiles/C_CloudBox.dir/src/main.c.o" "gcc" "CMakeFiles/C_CloudBox.dir/src/main.c.o.d"
+  "/home/wyw/workspace/C/C_CloudBox/src/utils/FFmpegClient.c" "CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o" "gcc" "CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o.d"
+  "/home/wyw/workspace/C/C_CloudBox/src/utils/MQClient.c" "CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o" "gcc" "CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o.d"
+  "/home/wyw/workspace/C/C_CloudBox/src/utils/TcpClient.c" "CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o" "gcc" "CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o.d"
+  "/home/wyw/workspace/C/C_CloudBox/src/utils/TcpServer.c" "CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o" "gcc" "CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o.d"
   )
 
 # Targets to which this target links.
