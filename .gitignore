@@ -1,4 +1,6 @@
-/build
+/**/build
+/C_CloudBox/build
+
 
 .idea
 .vscode
