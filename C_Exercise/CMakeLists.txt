@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.22)
 
 # 设置项目名称
-project(C_CloudBox VERSION 1.0.0 LANGUAGES C)
+project(C_Exercise VERSION 1.0.0 LANGUAGES C)
 
 # -------------------------- 第三方库 --------------------------
 
