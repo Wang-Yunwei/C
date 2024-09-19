@@ -7,6 +7,39 @@
 
 #include "include/Utils.h"
 
+void startMqtt();
+void startTcp();
+
+void test1(char *str)
+{
+    printf("%s %d\n", str, strlen(str));
+}
+void main()
+{
+    printf("========= Main Function Start! =========\n");
+
+    test1("Hello World!");
+
+    
+
+    printf("========= Main Function End! =========\n");
+}
+
+void startTcp()
+{
+    pthread_t thread_id_tcp_server;
+    pthread_create(&thread_id_tcp_server, NULL, TCP_Create_Server, NULL);
+
+    sleep(3);
+
+    pthread_t thread_id_tcp_client;
+    pthread_create(&thread_id_tcp_client, NULL, TCP_Create_Client, NULL);
+
+    // 等待子线程结束
+    // pthread_join(thread_id_tcp_client, NULL);
+    pthread_join(thread_id_tcp_server, NULL);
+}
+
 void startMqtt()
 {
     /* --------- Start _ MQTT ---------*/
@@ -29,35 +62,4 @@ void startMqtt()
 
     // 等待子线程结束
     pthread_join(thread_id_mqtt, NULL);
-}
-
-void startTcp()
-{
-    pthread_t thread_id_tcp_server;
-    pthread_create(&thread_id_tcp_server, NULL, TCP_Create_Server, NULL);
-
-    sleep(3);
-
-    pthread_t thread_id_tcp_client;
-    pthread_create(&thread_id_tcp_client, NULL, TCP_Create_Client, NULL);
-
-    // 等待子线程结束
-    // pthread_join(thread_id_tcp_client, NULL);
-    pthread_join(thread_id_tcp_server, NULL);
-}
-
-void test(char *str){
-    printf("%s\n",str);
-    // printf(str);
-}
-
-void main()
-{
-    printf("========= Main Function Start! =========\n");
-
-
-
-    test("Hello World!");
-
-    printf("========= Main Function End! =========\n");
 }
