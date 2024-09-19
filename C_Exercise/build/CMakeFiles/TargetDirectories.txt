@@ -1,3 +1,0 @@
-/home/wyw/workspace/C_Exercise/build/CMakeFiles/C_Exercise.dir
-/home/wyw/workspace/C_Exercise/build/CMakeFiles/edit_cache.dir
-/home/wyw/workspace/C_Exercise/build/CMakeFiles/rebuild_cache.dir

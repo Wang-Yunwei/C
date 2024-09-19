@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wyw/workspace/C_CloudBox
+CMAKE_SOURCE_DIR = /home/wyw/workspace/C/C_CloudBox
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wyw/workspace/C_CloudBox/build
+CMAKE_BINARY_DIR = /home/wyw/workspace/C/C_CloudBox/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyw/workspace/C_CloudBox/build/CMakeFiles /home/wyw/workspace/C_CloudBox/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyw/workspace/C/C_CloudBox/build/CMakeFiles /home/wyw/workspace/C/C_CloudBox/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyw/workspace/C_CloudBox/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/wyw/workspace/C/C_CloudBox/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -201,6 +201,54 @@ src/utils/MQClient.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/C_CloudBox.dir/build.make CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.s
 .PHONY : src/utils/MQClient.c.s
 
+src/utils/TcpClient.o: src/utils/TcpClient.c.o
+.PHONY : src/utils/TcpClient.o
+
+# target to build an object file
+src/utils/TcpClient.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/C_CloudBox.dir/build.make CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o
+.PHONY : src/utils/TcpClient.c.o
+
+src/utils/TcpClient.i: src/utils/TcpClient.c.i
+.PHONY : src/utils/TcpClient.i
+
+# target to preprocess a source file
+src/utils/TcpClient.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/C_CloudBox.dir/build.make CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.i
+.PHONY : src/utils/TcpClient.c.i
+
+src/utils/TcpClient.s: src/utils/TcpClient.c.s
+.PHONY : src/utils/TcpClient.s
+
+# target to generate assembly for a file
+src/utils/TcpClient.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/C_CloudBox.dir/build.make CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.s
+.PHONY : src/utils/TcpClient.c.s
+
+src/utils/TcpServer.o: src/utils/TcpServer.c.o
+.PHONY : src/utils/TcpServer.o
+
+# target to build an object file
+src/utils/TcpServer.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/C_CloudBox.dir/build.make CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o
+.PHONY : src/utils/TcpServer.c.o
+
+src/utils/TcpServer.i: src/utils/TcpServer.c.i
+.PHONY : src/utils/TcpServer.i
+
+# target to preprocess a source file
+src/utils/TcpServer.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/C_CloudBox.dir/build.make CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.i
+.PHONY : src/utils/TcpServer.c.i
+
+src/utils/TcpServer.s: src/utils/TcpServer.c.s
+.PHONY : src/utils/TcpServer.s
+
+# target to generate assembly for a file
+src/utils/TcpServer.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/C_CloudBox.dir/build.make CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.s
+.PHONY : src/utils/TcpServer.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -219,6 +267,12 @@ help:
 	@echo "... src/utils/MQClient.o"
 	@echo "... src/utils/MQClient.i"
 	@echo "... src/utils/MQClient.s"
+	@echo "... src/utils/TcpClient.o"
+	@echo "... src/utils/TcpClient.i"
+	@echo "... src/utils/TcpClient.s"
+	@echo "... src/utils/TcpServer.o"
+	@echo "... src/utils/TcpServer.i"
+	@echo "... src/utils/TcpServer.s"
 .PHONY : help
 
 

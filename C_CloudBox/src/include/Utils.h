@@ -7,4 +7,7 @@
 void *MQTT_CreateClient();
 int MQTT_v5_publish(char *message);
 
+void *TCP_Create_Server();
+void *TCP_Create_Client();
+
 #endif

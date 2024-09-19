@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/wyw/workspace/C_Exercise/build",
-  "command": "/usr/bin/cc   -g -o CMakeFiles/C_Exercise.dir/main.c.o -c /home/wyw/workspace/C_Exercise/main.c",
-  "file": "/home/wyw/workspace/C_Exercise/main.c"
-}
-]

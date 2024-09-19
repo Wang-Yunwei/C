@@ -8,6 +8,8 @@
         "inet.h": "c",
         "unistd.h": "c",
         "string.h": "c",
-        "stdlib.h": "c"
+        "stdlib.h": "c",
+        "select.h": "c",
+        "time.h": "c"
     }
 }

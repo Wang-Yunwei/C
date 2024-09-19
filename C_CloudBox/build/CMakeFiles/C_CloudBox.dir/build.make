@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/wyw/workspace/C_CloudBox
+CMAKE_SOURCE_DIR = /home/wyw/workspace/C/C_CloudBox
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/wyw/workspace/C_CloudBox/build
+CMAKE_BINARY_DIR = /home/wyw/workspace/C/C_CloudBox/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/C_CloudBox.dir/depend.make
@@ -72,50 +72,80 @@ include CMakeFiles/C_CloudBox.dir/flags.make
 CMakeFiles/C_CloudBox.dir/src/main.c.o: CMakeFiles/C_CloudBox.dir/flags.make
 CMakeFiles/C_CloudBox.dir/src/main.c.o: ../src/main.c
 CMakeFiles/C_CloudBox.dir/src/main.c.o: CMakeFiles/C_CloudBox.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyw/workspace/C_CloudBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/C_CloudBox.dir/src/main.c.o"
-	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/C_CloudBox.dir/src/main.c.o -MF CMakeFiles/C_CloudBox.dir/src/main.c.o.d -o CMakeFiles/C_CloudBox.dir/src/main.c.o -c /home/wyw/workspace/C_CloudBox/src/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyw/workspace/C/C_CloudBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/C_CloudBox.dir/src/main.c.o"
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/C_CloudBox.dir/src/main.c.o -MF CMakeFiles/C_CloudBox.dir/src/main.c.o.d -o CMakeFiles/C_CloudBox.dir/src/main.c.o -c /home/wyw/workspace/C/C_CloudBox/src/main.c
 
 CMakeFiles/C_CloudBox.dir/src/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/C_CloudBox.dir/src/main.c.i"
-	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wyw/workspace/C_CloudBox/src/main.c > CMakeFiles/C_CloudBox.dir/src/main.c.i
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wyw/workspace/C/C_CloudBox/src/main.c > CMakeFiles/C_CloudBox.dir/src/main.c.i
 
 CMakeFiles/C_CloudBox.dir/src/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/C_CloudBox.dir/src/main.c.s"
-	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wyw/workspace/C_CloudBox/src/main.c -o CMakeFiles/C_CloudBox.dir/src/main.c.s
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wyw/workspace/C/C_CloudBox/src/main.c -o CMakeFiles/C_CloudBox.dir/src/main.c.s
 
 CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o: CMakeFiles/C_CloudBox.dir/flags.make
 CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o: ../src/utils/MQClient.c
 CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o: CMakeFiles/C_CloudBox.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyw/workspace/C_CloudBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o"
-	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o -MF CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o.d -o CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o -c /home/wyw/workspace/C_CloudBox/src/utils/MQClient.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyw/workspace/C/C_CloudBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o"
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o -MF CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o.d -o CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o -c /home/wyw/workspace/C/C_CloudBox/src/utils/MQClient.c
 
 CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.i"
-	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wyw/workspace/C_CloudBox/src/utils/MQClient.c > CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.i
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wyw/workspace/C/C_CloudBox/src/utils/MQClient.c > CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.i
 
 CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.s"
-	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wyw/workspace/C_CloudBox/src/utils/MQClient.c -o CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.s
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wyw/workspace/C/C_CloudBox/src/utils/MQClient.c -o CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.s
 
 CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o: CMakeFiles/C_CloudBox.dir/flags.make
 CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o: ../src/utils/FFmpegClient.c
 CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o: CMakeFiles/C_CloudBox.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyw/workspace/C_CloudBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o"
-	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o -MF CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o.d -o CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o -c /home/wyw/workspace/C_CloudBox/src/utils/FFmpegClient.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyw/workspace/C/C_CloudBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o"
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o -MF CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o.d -o CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o -c /home/wyw/workspace/C/C_CloudBox/src/utils/FFmpegClient.c
 
 CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.i"
-	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wyw/workspace/C_CloudBox/src/utils/FFmpegClient.c > CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.i
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wyw/workspace/C/C_CloudBox/src/utils/FFmpegClient.c > CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.i
 
 CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.s"
-	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wyw/workspace/C_CloudBox/src/utils/FFmpegClient.c -o CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.s
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wyw/workspace/C/C_CloudBox/src/utils/FFmpegClient.c -o CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.s
+
+CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o: CMakeFiles/C_CloudBox.dir/flags.make
+CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o: ../src/utils/TcpClient.c
+CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o: CMakeFiles/C_CloudBox.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyw/workspace/C/C_CloudBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o"
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o -MF CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o.d -o CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o -c /home/wyw/workspace/C/C_CloudBox/src/utils/TcpClient.c
+
+CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.i"
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wyw/workspace/C/C_CloudBox/src/utils/TcpClient.c > CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.i
+
+CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.s"
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wyw/workspace/C/C_CloudBox/src/utils/TcpClient.c -o CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.s
+
+CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o: CMakeFiles/C_CloudBox.dir/flags.make
+CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o: ../src/utils/TcpServer.c
+CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o: CMakeFiles/C_CloudBox.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/wyw/workspace/C/C_CloudBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o"
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o -MF CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o.d -o CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o -c /home/wyw/workspace/C/C_CloudBox/src/utils/TcpServer.c
+
+CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.i"
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/wyw/workspace/C/C_CloudBox/src/utils/TcpServer.c > CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.i
+
+CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.s"
+	/usr/bin/gcc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/wyw/workspace/C/C_CloudBox/src/utils/TcpServer.c -o CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.s
 
 # Object files for target C_CloudBox
 C_CloudBox_OBJECTS = \
 "CMakeFiles/C_CloudBox.dir/src/main.c.o" \
 "CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o" \
-"CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o"
+"CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o" \
+"CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o" \
+"CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o"
 
 # External object files for target C_CloudBox
 C_CloudBox_EXTERNAL_OBJECTS =
@@ -123,13 +153,15 @@ C_CloudBox_EXTERNAL_OBJECTS =
 C_CloudBox: CMakeFiles/C_CloudBox.dir/src/main.c.o
 C_CloudBox: CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o
 C_CloudBox: CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o
+C_CloudBox: CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o
+C_CloudBox: CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o
 C_CloudBox: CMakeFiles/C_CloudBox.dir/build.make
 C_CloudBox: ../resource/mosquitto/lib/libmosquitto.so
 C_CloudBox: ../resource/ffmpeg/lib/libavcodec.so
 C_CloudBox: ../resource/ffmpeg/lib/libavformat.so
 C_CloudBox: ../resource/ffmpeg/lib/libavutil.so
 C_CloudBox: CMakeFiles/C_CloudBox.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wyw/workspace/C_CloudBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking C executable C_CloudBox"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/wyw/workspace/C/C_CloudBox/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking C executable C_CloudBox"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/C_CloudBox.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -141,6 +173,6 @@ CMakeFiles/C_CloudBox.dir/clean:
 .PHONY : CMakeFiles/C_CloudBox.dir/clean
 
 CMakeFiles/C_CloudBox.dir/depend:
-	cd /home/wyw/workspace/C_CloudBox/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wyw/workspace/C_CloudBox /home/wyw/workspace/C_CloudBox /home/wyw/workspace/C_CloudBox/build /home/wyw/workspace/C_CloudBox/build /home/wyw/workspace/C_CloudBox/build/CMakeFiles/C_CloudBox.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/wyw/workspace/C/C_CloudBox/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/wyw/workspace/C/C_CloudBox /home/wyw/workspace/C/C_CloudBox /home/wyw/workspace/C/C_CloudBox/build /home/wyw/workspace/C/C_CloudBox/build /home/wyw/workspace/C/C_CloudBox/build/CMakeFiles/C_CloudBox.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/C_CloudBox.dir/depend
 

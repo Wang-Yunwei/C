@@ -1,17 +1,27 @@
 [
 {
-  "directory": "/home/wyw/workspace/C_CloudBox/build",
-  "command": "/usr/bin/gcc  -I/home/wyw/workspace/C_CloudBox/resource/mosquitto/include -I/home/wyw/workspace/C_CloudBox/resource/ffmpeg/include -g -o CMakeFiles/C_CloudBox.dir/src/main.c.o -c /home/wyw/workspace/C_CloudBox/src/main.c",
-  "file": "/home/wyw/workspace/C_CloudBox/src/main.c"
+  "directory": "/home/wyw/workspace/C/C_CloudBox/build",
+  "command": "/usr/bin/gcc  -I/home/wyw/workspace/C/C_CloudBox/resource/mosquitto/include -I/home/wyw/workspace/C/C_CloudBox/resource/ffmpeg/include -g -o CMakeFiles/C_CloudBox.dir/src/main.c.o -c /home/wyw/workspace/C/C_CloudBox/src/main.c",
+  "file": "/home/wyw/workspace/C/C_CloudBox/src/main.c"
 },
 {
-  "directory": "/home/wyw/workspace/C_CloudBox/build",
-  "command": "/usr/bin/gcc  -I/home/wyw/workspace/C_CloudBox/resource/mosquitto/include -I/home/wyw/workspace/C_CloudBox/resource/ffmpeg/include -g -o CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o -c /home/wyw/workspace/C_CloudBox/src/utils/MQClient.c",
-  "file": "/home/wyw/workspace/C_CloudBox/src/utils/MQClient.c"
+  "directory": "/home/wyw/workspace/C/C_CloudBox/build",
+  "command": "/usr/bin/gcc  -I/home/wyw/workspace/C/C_CloudBox/resource/mosquitto/include -I/home/wyw/workspace/C/C_CloudBox/resource/ffmpeg/include -g -o CMakeFiles/C_CloudBox.dir/src/utils/MQClient.c.o -c /home/wyw/workspace/C/C_CloudBox/src/utils/MQClient.c",
+  "file": "/home/wyw/workspace/C/C_CloudBox/src/utils/MQClient.c"
 },
 {
-  "directory": "/home/wyw/workspace/C_CloudBox/build",
-  "command": "/usr/bin/gcc  -I/home/wyw/workspace/C_CloudBox/resource/mosquitto/include -I/home/wyw/workspace/C_CloudBox/resource/ffmpeg/include -g -o CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o -c /home/wyw/workspace/C_CloudBox/src/utils/FFmpegClient.c",
-  "file": "/home/wyw/workspace/C_CloudBox/src/utils/FFmpegClient.c"
+  "directory": "/home/wyw/workspace/C/C_CloudBox/build",
+  "command": "/usr/bin/gcc  -I/home/wyw/workspace/C/C_CloudBox/resource/mosquitto/include -I/home/wyw/workspace/C/C_CloudBox/resource/ffmpeg/include -g -o CMakeFiles/C_CloudBox.dir/src/utils/FFmpegClient.c.o -c /home/wyw/workspace/C/C_CloudBox/src/utils/FFmpegClient.c",
+  "file": "/home/wyw/workspace/C/C_CloudBox/src/utils/FFmpegClient.c"
+},
+{
+  "directory": "/home/wyw/workspace/C/C_CloudBox/build",
+  "command": "/usr/bin/gcc  -I/home/wyw/workspace/C/C_CloudBox/resource/mosquitto/include -I/home/wyw/workspace/C/C_CloudBox/resource/ffmpeg/include -g -o CMakeFiles/C_CloudBox.dir/src/utils/TcpClient.c.o -c /home/wyw/workspace/C/C_CloudBox/src/utils/TcpClient.c",
+  "file": "/home/wyw/workspace/C/C_CloudBox/src/utils/TcpClient.c"
+},
+{
+  "directory": "/home/wyw/workspace/C/C_CloudBox/build",
+  "command": "/usr/bin/gcc  -I/home/wyw/workspace/C/C_CloudBox/resource/mosquitto/include -I/home/wyw/workspace/C/C_CloudBox/resource/ffmpeg/include -g -o CMakeFiles/C_CloudBox.dir/src/utils/TcpServer.c.o -c /home/wyw/workspace/C/C_CloudBox/src/utils/TcpServer.c",
+  "file": "/home/wyw/workspace/C/C_CloudBox/src/utils/TcpServer.c"
 }
 ]

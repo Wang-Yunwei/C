@@ -28,6 +28,8 @@ add_executable(${PROJECT_NAME}
     ${MODULE_APP_MAIN}
     "${MODULE_APP_UTILS}/MQClient.c"
     "${MODULE_APP_UTILS}/FFmpegClient.c"
+    "${MODULE_APP_UTILS}/TcpClient.c"
+    "${MODULE_APP_UTILS}/TcpServer.c"
 )
 # 包含头文件
 target_include_directories(${PROJECT_NAME} PRIVATE
