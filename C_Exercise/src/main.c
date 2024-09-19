@@ -2,6 +2,7 @@
  * Created by WangYunwei [2024-09-11]
  */
 #include <stdio.h>
+#include <string.h>
 #include <unistd.h>
 #include <pthread.h>
 
@@ -12,7 +13,7 @@ void startTcp();
 
 void test1(char *str)
 {
-    printf("%s %d\n", str, strlen(str));
+    printf("%s %ld\n", str, strlen(str));
 }
 void main()
 {

@@ -16,9 +16,42 @@
 int sockfd;
 
 // 关闭套接字
-void UDP_Close()
+void UDP_Socket_Close()
 {
     close(sockfd);
+}
+
+// 发送数据
+void UDP_Socket_Send(char *message, const char *server_ip, int server_port)
+{
+
+    // 设置服务器地址结构
+    struct sockaddr_in serv_addr;
+    memset(&serv_addr, 0, sizeof(serv_addr));
+    serv_addr.sin_family = AF_INET;
+    serv_addr.sin_port = htons(server_port);
+
+    // 将IPv4和IPv6地址从文本转换成二进制形式
+    if (inet_pton(AF_INET, server_ip, &serv_addr.sin_addr) <= 0)
+    {
+        printf("\nInvalid address/ Address not supported \n");
+        return;
+    }
+
+    int send_bytes = sendto(sockfd, message, strlen(message) + 1, MSG_DONTWAIT,
+                            (const struct sockaddr *)&serv_addr, sizeof(serv_addr));
+    if (send_bytes < 0)
+    {
+        if (errno == EAGAIN || errno == EWOULDBLOCK)
+        {
+            printf("Send would block\n");
+        }
+        else
+        {
+            perror("sendto failed");
+        }
+        return;
+    }
 }
 
 void *UDP_Create_Socket()
@@ -56,37 +89,4 @@ void *UDP_Create_Socket()
         }
     }
     printf("Received: %s\n", buffer);
-}
-
-// 发送数据
-void UDP_Send(char *message, const char *server_ip, int server_port)
-{
-
-    // 设置服务器地址结构
-    struct sockaddr_in serv_addr;
-    memset(&serv_addr, 0, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(server_port);
-
-    // 将IPv4和IPv6地址从文本转换成二进制形式
-    if (inet_pton(AF_INET, server_ip, &serv_addr.sin_addr) <= 0)
-    {
-        printf("\nInvalid address/ Address not supported \n");
-        return;
-    }
-
-    int send_bytes = sendto(sockfd, message, strlen(message) + 1, MSG_DONTWAIT,
-                            (const struct sockaddr *)&serv_addr, sizeof(serv_addr));
-    if (send_bytes < 0)
-    {
-        if (errno == EAGAIN || errno == EWOULDBLOCK)
-        {
-            printf("Send would block\n");
-        }
-        else
-        {
-            perror("sendto failed");
-        }
-        return;
-    }
 }
