@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/wyw/workspace/C_Srs/build",
-  "command": "/usr/bin/cc  -I/home/wyw/soft/ffmpeg/include -g -o CMakeFiles/C_Srs.dir/main.c.o -c /home/wyw/workspace/C_Srs/main.c",
-  "file": "/home/wyw/workspace/C_Srs/main.c"
-}
-]

@@ -1,1 +1,0 @@
-/usr/bin/cc -g CMakeFiles/C_Emqx.dir/main.c.o -o C_Emqx  -Wl,-rpath,/usr/local/lib /usr/local/lib/libmosquitto.so 

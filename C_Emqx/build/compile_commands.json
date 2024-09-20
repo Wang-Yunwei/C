@@ -1,7 +1,0 @@
-[
-{
-  "directory": "/home/wyw/workspace/C_Emqx/build",
-  "command": "/usr/bin/cc   -g -o CMakeFiles/C_Emqx.dir/main.c.o -c /home/wyw/workspace/C_Emqx/main.c",
-  "file": "/home/wyw/workspace/C_Emqx/main.c"
-}
-]
