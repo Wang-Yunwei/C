@@ -1,5 +1,4 @@
-.idea
-.vscode
-
-C_CloudBox/build/*
-C_Exercise/build/*
+# exclude vscode files
+.vscode/
+*.factorypath
+*/build/*
