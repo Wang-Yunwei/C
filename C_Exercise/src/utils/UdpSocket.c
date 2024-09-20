@@ -50,11 +50,13 @@ void *UDP_Create_Socket()
 {
     // 创建套接字
     sockudp = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sockudp)
+    if (sockudp < 0)
     {
         perror("创建 UDP_Socket 失败!");
         exit(EXIT_FAILURE);
     }
+
+    getAddr(sockudp);
 
     // 绑定端口
     struct sockaddr_in local;

@@ -16,8 +16,6 @@
 void startMqtt();
 void startTcp();
 
-void get_local_ip_addresses();
-
 void test1(char *str)
 {
     printf("%s %ld\n", str, strlen(str));

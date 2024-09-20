@@ -13,4 +13,6 @@ void *TCP_Create_Client();
 void *UDP_Create_Socket();
 void UDP_Socket_Send(char *message);
 
+void getAddr(int sockudp);
+
 #endif

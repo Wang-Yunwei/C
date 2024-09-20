@@ -47,6 +47,7 @@ add_executable(${PROJECT_NAME}
     "${MODULE_APP_UTILS}/TcpClient.c"
     "${MODULE_APP_UTILS}/TcpServer.c"
     "${MODULE_APP_UTILS}/UdpSocket.c"
+    "${MODULE_APP_UTILS}/GetNetworkAddr.c"
 )
 # 包含头文件
 target_include_directories(${PROJECT_NAME} PRIVATE
