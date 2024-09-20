@@ -5,64 +5,74 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <pthread.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
 
-#define BUFFER_SIZE 1024
+#include "../include/Utils.h"
 
-int sockfd;
+#define SERVER_IP "192.168.0.221"
+#define SERVER_PORT 20242
+#define BUFFER_SIZE 1400
+
+int sockudp;
 
 // 关闭套接字
 void UDP_Socket_Close()
 {
-    close(sockfd);
+    close(sockudp);
 }
 
 // 发送数据
-void UDP_Socket_Send(char *message, const char *server_ip, int server_port)
+void UDP_Socket_Send(char *message)
 {
-
     // 设置服务器地址结构
-    struct sockaddr_in serv_addr;
-    memset(&serv_addr, 0, sizeof(serv_addr));
-    serv_addr.sin_family = AF_INET;
-    serv_addr.sin_port = htons(server_port);
+    struct sockaddr_in server_addr;
+    memset(&server_addr, 0, sizeof(server_addr)); // 将服务器地址结构体清零
+    server_addr.sin_family = AF_INET;             // 设置地址族为IPv4
+    server_addr.sin_port = htons(SERVER_PORT);    // 设置服务器端口, 并将其转换为网络字节序
 
     // 将IPv4和IPv6地址从文本转换成二进制形式
-    if (inet_pton(AF_INET, server_ip, &serv_addr.sin_addr) <= 0)
+    if (inet_pton(AF_INET, SERVER_IP, &server_addr.sin_addr))
     {
-        printf("\nInvalid address/ Address not supported \n");
-        return;
+        perror("Invalid address/ Address not supported");
     }
 
-    int send_bytes = sendto(sockfd, message, strlen(message) + 1, MSG_DONTWAIT,
-                            (const struct sockaddr *)&serv_addr, sizeof(serv_addr));
-    if (send_bytes < 0)
-    {
-        if (errno == EAGAIN || errno == EWOULDBLOCK)
-        {
-            printf("Send would block\n");
-        }
-        else
-        {
-            perror("sendto failed");
-        }
-        return;
-    }
+    char buffer[BUFFER_SIZE];
+    strncpy(buffer, message, BUFFER_SIZE);
+
+    // 发送数据包
+    int send_bytes = sendto(sockudp, message, strlen(message), MSG_DONTWAIT, (struct sockaddr *)&server_addr, sizeof(server_addr));
 }
 
 void *UDP_Create_Socket()
 {
     // 创建套接字
-    sockfd = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sockfd != 0)
+    sockudp = socket(AF_INET, SOCK_DGRAM, 0);
+    if (sockudp)
     {
         perror("创建 UDP_Socket 失败!");
         exit(EXIT_FAILURE);
     }
+
+    // 绑定端口
+    struct sockaddr_in local;
+    memset(&local, 0, sizeof(local));
+    local.sin_family = AF_INET;
+    local.sin_port = htons(SERVER_PORT);
+    local.sin_addr.s_addr = htonl(INADDR_ANY);
+
+    if (bind(sockudp, (struct sockaddr *)&local, sizeof(local)))
+    {
+        perror("绑定失败");
+        close(sockudp);
+        exit(EXIT_FAILURE);
+    }
+
+    // 设置非阻塞模式
+    int flags = fcntl(sockudp, F_GETFL, 0);
+    fcntl(sockudp, F_SETFL, flags | O_NONBLOCK);
 
     // 循环接收数据
     char buffer[1024] = {0};
@@ -70,23 +80,23 @@ void *UDP_Create_Socket()
     socklen_t fromlen = sizeof(from);
     while (1)
     {
-        // 设置非阻塞模式
-        int flags = fcntl(sockfd, F_GETFL, 0);
-        fcntl(sockfd, F_SETFL, flags | O_NONBLOCK);
-
-        int recv_bytes = recvfrom(sockfd, buffer, 1024, MSG_DONTWAIT, (struct sockaddr *)&from, &fromlen);
-        if (recv_bytes < 0)
+        ssize_t received = recvfrom(sockudp, buffer, 1024, MSG_DONTWAIT, (struct sockaddr *)&from, &fromlen);
+        if (received > 0)
         {
-            if (errno == EAGAIN || errno == EWOULDBLOCK)
-            {
-                printf("接收将阻塞!\n");
-            }
-            else
-            {
-                perror("接收数据失败!\n");
-            }
-            return;
+            buffer[received] = '\0'; // 确保字符串以null终止
+            printf("Received: %s\n", buffer);
+        }
+        else if (received == -1 && errno == EAGAIN || errno == EWOULDBLOCK)
+        {
+            // 没有数据可读，这里可以做一些其他事情或者等待
+            usleep(100000); // 休眠100毫秒
+        }
+        else
+        {
+            perror("接收失败");
+            break;
         }
     }
-    printf("Received: %s\n", buffer);
+    close(sockudp); // 关闭套接字
+    return NULL;
 }

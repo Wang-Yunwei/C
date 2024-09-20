@@ -10,4 +10,7 @@ int MQTT_v5_publish(char *message);
 void *TCP_Create_Server();
 void *TCP_Create_Client();
 
+void *UDP_Create_Socket();
+void UDP_Socket_Send(char *message);
+
 #endif

@@ -10,9 +10,9 @@
 
 #include "../include/Utils.h"
 
+#define PORT 3490
 #define MAX_CONNECTIONS 5
 #define BUFFER_SIZE 256
-#define PORT 3490
 
 void *TCP_Create_Server()
 {

@@ -2,14 +2,21 @@
  * Created by WangYunwei [2024-09-11]
  */
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <sys/types.h>  
+#include <ifaddrs.h>  
+#include <netinet/in.h>  
+#include <arpa/inet.h>
 
 #include "include/Utils.h"
 
 void startMqtt();
 void startTcp();
+
+void get_local_ip_addresses();
 
 void test1(char *str)
 {
@@ -21,6 +28,11 @@ void main()
 
     test1("Hello World!");
 
+
+    
+    pthread_t thread_id_udp;
+    pthread_create(&thread_id_udp, NULL, UDP_Create_Socket, NULL);
+    pthread_join(thread_id_udp, NULL);
     
 
     printf("========= Main Function End! =========\n");
