@@ -32,18 +32,15 @@ void UDP_Socket_Send(char *message)
     memset(&server_addr, 0, sizeof(server_addr)); // 将服务器地址结构体清零
     server_addr.sin_family = AF_INET;             // 设置地址族为IPv4
     server_addr.sin_port = htons(SERVER_PORT);    // 设置服务器端口, 并将其转换为网络字节序
-
-    // 将IPv4和IPv6地址从文本转换成二进制形式
-    if (inet_pton(AF_INET, SERVER_IP, &server_addr.sin_addr))
-    {
-        perror("Invalid address/ Address not supported");
-    }
+    server_addr.sin_addr.s_addr = inet_addr(SERVER_IP);
 
     char buffer[BUFFER_SIZE];
     strncpy(buffer, message, BUFFER_SIZE);
 
     // 发送数据包
-    int send_bytes = sendto(sockudp, message, strlen(message), MSG_DONTWAIT, (struct sockaddr *)&server_addr, sizeof(server_addr));
+    if (sendto(sockudp, message, strlen(message), MSG_DONTWAIT, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0) {
+        perror("Send failed");
+    }
 }
 
 void *UDP_Create_Socket()
@@ -56,13 +53,14 @@ void *UDP_Create_Socket()
         exit(EXIT_FAILURE);
     }
 
+    // 获取本机IP地址
     getAddr(sockudp);
 
     // 绑定端口
     struct sockaddr_in local;
     memset(&local, 0, sizeof(local));
     local.sin_family = AF_INET;
-    local.sin_port = htons(SERVER_PORT);
+    local.sin_port = htons(20243);
     local.sin_addr.s_addr = htonl(INADDR_ANY);
 
     if (bind(sockudp, (struct sockaddr *)&local, sizeof(local)))

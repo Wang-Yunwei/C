@@ -25,11 +25,11 @@ void main()
     printf("========= Main Function Start! =========\n");
 
     test1("Hello World!");
-
-
     
     pthread_t thread_id_udp;
     pthread_create(&thread_id_udp, NULL, UDP_Create_Socket, NULL);
+    sleep(3);
+    UDP_Socket_Send("Hello, UDP!");
     pthread_join(thread_id_udp, NULL);
     
 
