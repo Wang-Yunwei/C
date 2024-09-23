@@ -12,7 +12,8 @@
 
 #include "../include/Utils.h"
 
-#define SERVER_IP "192.168.0.221"
+#define SERVER_IP "172.31.96.1"
+// #define SERVER_IP "192.168.0.221"
 #define SERVER_PORT 20242
 #define BUFFER_SIZE 1400
 
@@ -60,7 +61,7 @@ void *UDP_Create_Socket()
     struct sockaddr_in local;
     memset(&local, 0, sizeof(local));
     local.sin_family = AF_INET;
-    local.sin_port = htons(20243);
+    local.sin_port = htons(49152);
     local.sin_addr.s_addr = htonl(INADDR_ANY);
 
     if (bind(sockudp, (struct sockaddr *)&local, sizeof(local)))
@@ -88,8 +89,9 @@ void *UDP_Create_Socket()
         }
         else if (received == -1 && errno == EAGAIN || errno == EWOULDBLOCK)
         {
+            printf("No data available\n");
             // 没有数据可读，这里可以做一些其他事情或者等待
-            usleep(100000); // 休眠100毫秒
+            sleep(3);
         }
         else
         {
