@@ -32,12 +32,12 @@
 #include <csignal>
 #include "dji_sdk_config.h"
 
-#include "../common/osal/osal.h"
-#include "../common/osal/osal_fs.h"
-#include "../common/osal/osal_socket.h"
-#include "../manifold2/hal/hal_usb_bulk.h"
-#include "../manifold2/hal/hal_uart.h"
-#include "../manifold2/hal/hal_network.h"
+#include "../../samples/sample_c++/platform/linux/common/osal/osal.h"
+#include "../../samples/sample_c++/platform/linux/common/osal/osal_fs.h"
+#include "../../samples/sample_c++/platform/linux/common/osal/osal_socket.h"
+#include "../../samples/sample_c++/platform/linux/manifold2/hal/hal_usb_bulk.h"
+#include "../../samples/sample_c++/platform/linux/manifold2/hal/hal_uart.h"
+#include "../../samples/sample_c++/platform/linux/manifold2/hal/hal_network.h"
 
 /* Private constants ---------------------------------------------------------*/
 #define DJI_LOG_PATH                    "Logs/DJI"
