@@ -19,13 +19,18 @@
 
 int sockudp;
 
-// 关闭套接字
+/**
+ * 关闭套接字
+ */
 void UDP_Socket_Close()
 {
     close(sockudp);
 }
 
-// 发送数据
+/**
+ * 发送数据包
+ * 测试 UDP 服务器 echo "Hello, UDP!" | nc -u -w1 localhost 8080
+ */
 void UDP_Socket_Send(char *message)
 {
     // 设置服务器地址结构
@@ -51,7 +56,7 @@ void *UDP_Create_Socket()
     if (sockudp < 0)
     {
         perror("创建 UDP_Socket 失败!");
-        exit(EXIT_FAILURE);
+        goto end;
     }
 
     // 获取本机IP地址
@@ -63,12 +68,10 @@ void *UDP_Create_Socket()
     local.sin_family = AF_INET;
     local.sin_port = htons(49152);
     local.sin_addr.s_addr = htonl(INADDR_ANY);
-
     if (bind(sockudp, (struct sockaddr *)&local, sizeof(local)))
     {
         perror("绑定失败");
-        close(sockudp);
-        exit(EXIT_FAILURE);
+        goto end;
     }
 
     // 设置非阻塞模式
@@ -99,6 +102,8 @@ void *UDP_Create_Socket()
             break;
         }
     }
-    close(sockudp); // 关闭套接字
-    return NULL;
+
+    end:
+        close(sockudp); // 关闭套接字
+        exit(EXIT_FAILURE);
 }
