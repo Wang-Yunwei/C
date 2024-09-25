@@ -27,7 +27,7 @@
 #include <perception/test_perception_entry.hpp>
 #include <flight_control/test_flight_control.h>
 #include <gimbal/test_gimbal_entry.hpp>
-#include <hms/test_hms.h>
+#include <hms_manager/hms_manager_entry.h>
 #include <waypoint_v2/test_waypoint_v2.h>
 #include <waypoint_v3/test_waypoint_v3.h>
 #include <gimbal_manager/test_gimbal_manager.h>
@@ -113,7 +113,7 @@ start:
             DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_SET_GET_PARAM);
             break;
         case '7':
-            DjiTest_HmsRunSample();
+            DjiUser_RunHmsManagerSample();
             break;
         case '8':
             DjiTest_WaypointV2RunSample();
