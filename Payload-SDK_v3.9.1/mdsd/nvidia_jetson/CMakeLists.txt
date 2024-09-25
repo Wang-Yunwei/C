@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(dji_sdk_demo_on_jetson_cxx CXX)
+project(mdsd_on_jetson_cxx CXX)
 
 set(CMAKE_C_FLAGS "-pthread -std=gnu99")
 set(CMAKE_CXX_FLAGS "-std=c++11 -pthread")
@@ -14,30 +14,30 @@ if (BUILD_TEST_CASES_ON MATCHES TRUE)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage -lgcov")
 endif ()
 
-include_directories(../../../module_sample)
-include_directories(../../../../sample_c/module_sample)
-include_directories(../common)
+include_directories(../../samples/sample_c++/module_sample)
+include_directories(../../samples/sample_c/module_sample)
+include_directories(../../samples/sample_c++/platform/linux/common)
 include_directories(../nvidia_jetson/application)
 
 file(GLOB_RECURSE MODULE_SAMPLE_SRC
-        ../../../module_sample/liveview/*.c*
-        ../../../module_sample/camera_manager/*.c*
-        ../../../module_sample/perception/*.c*
-        ../../../module_sample/gimbal/*.c*
-        ../../../../sample_c/module_sample/*.c
+        ../../samples/sample_c++/module_sample/liveview/*.c*
+        ../../samples/sample_c++/module_sample/camera_manager/*.c*
+        ../../samples/sample_c++/module_sample/perception/*.c*
+        ../../samples/sample_c++/module_sample/gimbal/*.c*
+        ../../samples/sample_c/module_sample/*.c
         )
-file(GLOB_RECURSE MODULE_COMMON_SRC ../common/*.c*)
-file(GLOB_RECURSE MODULE_HAL_SRC hal/*.c*)
+file(GLOB_RECURSE MODULE_COMMON_SRC ../../samples/sample_c++/platform/linux/common/*.c*)
+file(GLOB_RECURSE MODULE_HAL_SRC ../../samples/sample_c++/platform/linux/nvidia_jetson/hal/*.c*)
 file(GLOB_RECURSE MODULE_APP_SRC application/*.c*)
 
 set(TOOLCHAIN_NAME aarch64-linux-gnu-gcc)
 add_definitions(-DPLATFORM_ARCH_aarch64=1)
 add_definitions(-DSYSTEM_ARCH_LINUX=1)
 
-set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../common/3rdparty)
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../samples/sample_c++/platform/linux/common/3rdparty)
 
-link_directories(${CMAKE_CURRENT_LIST_DIR}/../../../../../psdk_lib/lib/${TOOLCHAIN_NAME})
-link_libraries(${CMAKE_CURRENT_LIST_DIR}/../../../../../psdk_lib/lib/${TOOLCHAIN_NAME}/libpayloadsdk.a -lstdc++)
+link_directories(${CMAKE_CURRENT_LIST_DIR}/../../psdk_lib/lib/${TOOLCHAIN_NAME})
+link_libraries(${CMAKE_CURRENT_LIST_DIR}/../../psdk_lib/lib/${TOOLCHAIN_NAME}/libpayloadsdk.a -lstdc++)
 
 add_executable(${PROJECT_NAME}
         ${MODULE_APP_SRC}
@@ -85,7 +85,7 @@ else ()
     message(STATUS "Cannot Find FFMPEG")
 endif (FFMPEG_FOUND)
 
-include_directories(${CMAKE_CURRENT_LIST_DIR}/../../../../../psdk_lib/include)
+include_directories(${CMAKE_CURRENT_LIST_DIR}/../../psdk_lib/include)
 
 
 find_package(OPUS REQUIRED)
