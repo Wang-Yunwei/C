@@ -113,7 +113,8 @@ start:
             DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_SET_GET_PARAM);
             break;
         case '7':
-            DjiTest_HmsRunSample();
+            // DjiTest_HmsRunSample();
+            DjiTest_HmsManagerRunSample(DJI_MOBILE_APP_LANGUAGE_CHINESE);
             break;
         case '8':
             DjiTest_WaypointV2RunSample();
