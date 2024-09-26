@@ -43,6 +43,7 @@
 #include "data_transmission/test_data_transmission.h"
 #include <camera_manager/test_camera_manager.h>
 #include "camera_manager/test_camera_manager_entry.h"
+#include <osal/osal_socket.h>
 
 /* Private constants ---------------------------------------------------------*/
 
@@ -54,10 +55,51 @@
 static T_DjiReturnCode DjiTest_HighPowerApplyPinInit();
 static T_DjiReturnCode DjiTest_WriteHighPowerApplyPin(E_DjiPowerManagementPinState pinState);
 
+static int DjiTest_OriginalMainMethod(int val1, char **val2);
+
+static void Mdsd_CallDjiPsdk();
+
 /* Exported functions definition ---------------------------------------------*/
 int main(int argc, char **argv)
 {
-    Application application(argc, argv);
+    // 若要测试原 main 中代码, 可取消此方法注释
+    // DjiTest_OriginalMainMethod(argc, argv);
+
+    // 麦迪调用大疆PSDK
+    Mdsd_CallDjiPsdk();
+}
+
+/* Private functions definition-----------------------------------------------*/
+static void Mdsd_CallDjiPsdk()
+{
+    T_DjiSocketHandle socketHandle;
+
+    // 创建 UDP Socket
+    T_DjiReturnCode os_res = Osal_Socket(DJI_SOCKET_MODE_UDP, &socketHandle);
+    if (os_res != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("创建 UDP 失败.");
+    }
+
+    // 绑定端口
+    char ipAddr[16] = "192.168.0.221";
+    uint32_t port = 8888;
+    uint32_t bufSzie = 1024;
+    uint8_t buf[bufSzie];
+    uint32_t realLen = 0;
+
+    Osal_UdpRecvData(socketHandle, ipAddr, &port, buf, bufSzie, &realLen);
+
+    // 关闭 Socket
+    // Osal_SocketClose(socketHandle);
+}
+
+/**
+ * 原 main 中代码移动到此方法中
+ */
+static int DjiTest_OriginalMainMethod(int val1, char **val2)
+{
+    Application application(val1, val2);
     char inputChar;
     T_DjiOsalHandler *osalHandler = DjiPlatform_GetOsalHandler();
     T_DjiReturnCode returnCode;
@@ -90,122 +132,132 @@ start:
         << std::endl;
 
     std::cin >> inputChar;
-    switch (inputChar) {
-        case '0':
-            DjiTest_FcSubscriptionRunSample();
+    switch (inputChar)
+    {
+    case '0':
+        DjiTest_FcSubscriptionRunSample();
+        break;
+    case '1':
+        DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_LANDING);
+        break;
+    case '2':
+        DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_POSITION_CTRL_LANDING);
+        break;
+    case '3':
+        DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_GO_HOME_FORCE_LANDING);
+        break;
+    case '4':
+        DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_VELOCITY_CTRL_LANDING);
+        break;
+    case '5':
+        DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_ARREST_FLYING);
+        break;
+    case '6':
+        DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_SET_GET_PARAM);
+        break;
+    case '7':
+        // DjiTest_HmsRunSample();
+        DjiTest_HmsManagerRunSample(DJI_MOBILE_APP_LANGUAGE_CHINESE);
+        break;
+    case '8':
+        DjiTest_WaypointV2RunSample();
+        break;
+    case '9':
+        DjiTest_WaypointV3RunSample();
+        break;
+    case 'a':
+        DjiUser_RunGimbalManagerSample();
+        break;
+    case 'c':
+        DjiUser_RunCameraStreamViewSample();
+        break;
+    case 'd':
+        DjiUser_RunStereoVisionViewSample();
+        break;
+    case 'e':
+        returnCode = DjiTest_CameraEmuBaseStartService();
+        if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+        {
+            USER_LOG_ERROR("camera emu common init error");
             break;
-        case '1':
-            DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_LANDING);
-            break;
-        case '2':
-            DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_POSITION_CTRL_LANDING);
-            break;
-        case '3':
-            DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_GO_HOME_FORCE_LANDING);
-            break;
-        case '4':
-            DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_TAKE_OFF_VELOCITY_CTRL_LANDING);
-            break;
-        case '5':
-            DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_ARREST_FLYING);
-            break;
-        case '6':
-            DjiTest_FlightControlRunSample(E_DJI_TEST_FLIGHT_CTRL_SAMPLE_SELECT_SET_GET_PARAM);
-            break;
-        case '7':
-            // DjiTest_HmsRunSample();
-            DjiTest_HmsManagerRunSample(DJI_MOBILE_APP_LANGUAGE_CHINESE);
-            break;
-        case '8':
-            DjiTest_WaypointV2RunSample();
-            break;
-        case '9':
-            DjiTest_WaypointV3RunSample();
-            break;
-        case 'a':
-            DjiUser_RunGimbalManagerSample();
-            break;
-        case 'c':
-            DjiUser_RunCameraStreamViewSample();
-            break;
-        case 'd':
-            DjiUser_RunStereoVisionViewSample();
-            break;
-        case 'e':
-            returnCode = DjiTest_CameraEmuBaseStartService();
-            if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-                USER_LOG_ERROR("camera emu common init error");
+        }
+
+        if (DjiPlatform_GetSocketHandler() != nullptr)
+        {
+            returnCode = DjiTest_CameraEmuMediaStartService();
+            if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+            {
+                USER_LOG_ERROR("camera emu media init error");
                 break;
             }
+        }
 
-            if (DjiPlatform_GetSocketHandler() != nullptr) {
-                returnCode = DjiTest_CameraEmuMediaStartService();
-                if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-                    USER_LOG_ERROR("camera emu media init error");
-                    break;
-                }
-            }
-
-            USER_LOG_INFO("Start camera all feautes sample successfully");
+        USER_LOG_INFO("Start camera all feautes sample successfully");
+        break;
+    case 'f':
+        if (DjiTest_GimbalStartService() != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+        {
+            USER_LOG_ERROR("psdk gimbal init error");
             break;
-        case 'f':
-            if (DjiTest_GimbalStartService() != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-                USER_LOG_ERROR("psdk gimbal init error");
-                break;
-            }
+        }
 
-            USER_LOG_INFO("Start gimbal all feautes sample successfully");
+        USER_LOG_INFO("Start gimbal all feautes sample successfully");
+        break;
+    case 'g':
+        returnCode = DjiTest_WidgetStartService();
+        if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+        {
+            USER_LOG_ERROR("widget sample init error");
             break;
-        case 'g':
-            returnCode = DjiTest_WidgetStartService();
-            if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-                USER_LOG_ERROR("widget sample init error");
-                break;
-            }
+        }
 
-            USER_LOG_INFO("Start widget all feautes sample successfully");
+        USER_LOG_INFO("Start widget all feautes sample successfully");
+        break;
+    case 'h':
+        returnCode = DjiTest_WidgetSpeakerStartService();
+        if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+        {
+            USER_LOG_ERROR("widget speaker test init error");
             break;
-        case 'h':
-            returnCode = DjiTest_WidgetSpeakerStartService();
-            if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-                USER_LOG_ERROR("widget speaker test init error");
-                break;
-            }
+        }
 
-            USER_LOG_INFO("Start widget speaker sample successfully");
-            break;
-        case 'i':
-            applyHighPowerHandler.pinInit = DjiTest_HighPowerApplyPinInit;
-            applyHighPowerHandler.pinWrite = DjiTest_WriteHighPowerApplyPin;
+        USER_LOG_INFO("Start widget speaker sample successfully");
+        break;
+    case 'i':
+        applyHighPowerHandler.pinInit = DjiTest_HighPowerApplyPinInit;
+        applyHighPowerHandler.pinWrite = DjiTest_WriteHighPowerApplyPin;
 
-            returnCode = DjiTest_RegApplyHighPowerHandler(&applyHighPowerHandler);
-            if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-                USER_LOG_ERROR("regsiter apply high power handler error");
-                break;
-            }
+        returnCode = DjiTest_RegApplyHighPowerHandler(&applyHighPowerHandler);
+        if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+        {
+            USER_LOG_ERROR("regsiter apply high power handler error");
+            break;
+        }
 
-            returnCode = DjiTest_PowerManagementStartService();
-            if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-                USER_LOG_ERROR("power management init error");
-                break;
-            }
+        returnCode = DjiTest_PowerManagementStartService();
+        if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+        {
+            USER_LOG_ERROR("power management init error");
+            break;
+        }
 
-            USER_LOG_INFO("Start power management sample successfully");
+        USER_LOG_INFO("Start power management sample successfully");
+        break;
+    case 'j':
+        returnCode = DjiTest_DataTransmissionStartService();
+        if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+        {
+            USER_LOG_ERROR("data transmission sample init error");
             break;
-        case 'j':
-            returnCode = DjiTest_DataTransmissionStartService();
-            if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
-                USER_LOG_ERROR("data transmission sample init error");
-                break;
-            }
+        }
 
-            USER_LOG_INFO("Start data transmission sample successfully");
-            break;
-        case 'k':
-            DjiUser_RunCameraManagerSample();
-            break;
-        default:
-            break;
+        USER_LOG_INFO("Start data transmission sample successfully");
+        break;
+    case 'k':
+        DjiUser_RunCameraManagerSample();
+        break;
+    default:
+        break;
     }
 
     osalHandler->TaskSleepMs(2000);
@@ -213,7 +265,6 @@ start:
     goto start;
 }
 
-/* Private functions definition-----------------------------------------------*/
 static T_DjiReturnCode DjiTest_HighPowerApplyPinInit()
 {
     return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
@@ -221,7 +272,7 @@ static T_DjiReturnCode DjiTest_HighPowerApplyPinInit()
 
 static T_DjiReturnCode DjiTest_WriteHighPowerApplyPin(E_DjiPowerManagementPinState pinState)
 {
-    //attention: please pull up the HWPR pin state by hardware.
+    // attention: please pull up the HWPR pin state by hardware.
     return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
 }
 
