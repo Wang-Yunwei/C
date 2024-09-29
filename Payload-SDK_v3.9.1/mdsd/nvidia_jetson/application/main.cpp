@@ -83,7 +83,7 @@ static void Mdsd_CallDjiPsdk()
 
     // 绑定端口
     char ipAddr[16] = "192.168.0.221";
-    uint32_t port = 8888;
+    uint32_t port = 20242;
     uint32_t bufSzie = 1024;
     uint8_t buf[bufSzie];
     uint32_t realLen = 0;

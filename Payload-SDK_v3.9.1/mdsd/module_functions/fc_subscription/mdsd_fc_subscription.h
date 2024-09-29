@@ -5,7 +5,7 @@
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef MDSD_FC_SUBSCRIPTION_H
+#ifndef MDSD_FC_C_H
 #define MDSD_FC_SUBSCRIPTION_H
 
 /* Includes ------------------------------------------------------------------*/
@@ -19,9 +19,14 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 
 /* Exported types ------------------------------------------------------------*/
+typedef struct
+{
+
+} T_FcSubscriptionData;
 
 /* Exported functions --------------------------------------------------------*/
-void MDSD_FcSubscription();
+T_DjiReturnCode F_FcSubscription();
+
 #ifdef __cplusplus
 }
 #endif
