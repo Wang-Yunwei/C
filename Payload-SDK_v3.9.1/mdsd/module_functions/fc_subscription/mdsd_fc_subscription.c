@@ -962,149 +962,333 @@ T_DjiReturnCode F_FcSubscription()
     {
         USER_LOG_ERROR("订阅 - 四元数_失败!");
     }
-    else
-    {
-        USER_LOG_DEBUG("订阅 - 四元数_成功!");
-    }
 
     // 订阅 - 相对地面加速度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ACCELERATION_GROUND, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_AccelrationGround_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 相对地面加速度_失败!");
+    }
 
     // 订阅 - 相对机体加速度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ACCELERATION_BODY, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_AccelerationBody_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 相对机体加速度_失败!");
+    }
 
     // 订阅 - 原始加速度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ACCELERATION_RAW, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_AccelerationRaw_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 原始加速度_失败!");
+    }
 
     // 订阅 - 速度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_VELOCITY, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_Velocity_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 速度_失败!");
+    }
 
     // 订阅 - 融合角速度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ANGULAR_RATE_FUSIONED, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_AngularRateFusioned_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 融合角速度_失败!");
+    }
 
     // 订阅 - 原始角速度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ANGULAR_RATE_RAW, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_AngularRateRaw_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 原始角速度_失败!");
+    }
 
     // 订阅 - 融合高度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ALTITUDE_FUSED, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_AltitudeFused_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 融合高度_失败!");
+    }
 
     // 订阅 - 气压计高度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ALTITUDE_BAROMETER, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_AltitudeBarometer_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 气压计高度_失败!");
+    }
 
     // 订阅 - Home点高度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ALTITUDE_OF_HOMEPOINT, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_AltitudeOfHomepoint_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - Home点高度_失败!");
+    }
 
     // 订阅 - 融合相对地面高度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_HEIGHT_FUSION, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_HeightFusion_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 融合相对地面高度_失败!");
+    }
 
     // 订阅 - 相对地面高度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_HEIGHT_RELATIVE, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_HeightRelative_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 相对地面高度_失败!");
+    }
 
     // 订阅 - 融合位置坐标
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_POSITION_FUSED, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_PositionFused_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 融合位置坐标_失败!");
+    }
 
     // 订阅 - GPS 日期 (年月日)
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_GPS_DATE, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_GpsDate_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - GPS 日期 (年月日)_失败!");
+    }
 
     // 订阅 - GPS 时间 (时分秒)
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_GPS_TIME, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_GpsTime_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - GPS 时间 (时分秒)_失败!");
+    }
 
     // 订阅 - GPS 位置
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_GPS_POSITION, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_GpsPosition_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - GPS 位置_失败!");
+    }
 
     // 订阅 - GPS 速度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_GPS_VELOCITY, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_GpsVelocity_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - GPS 速度_失败!");
+    }
 
     // 订阅 - GPS 信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_GPS_DETAILS, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_GpsDetails_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - GPS 信息_失败!");
+    }
 
     // 订阅 - GPS 信号强度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_GPS_SIGNAL_LEVEL, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_GpsSignalLevel_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - GPS 信号强度_失败!");
+    }
 
     // 订阅 - RTK 位置
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_RTK_POSITION, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_RtkPosition_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - RTK 位置_失败!");
+    }
 
     // 订阅 - RTK 速度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_RTK_VELOCITY, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_RtkVelocity_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - RTK 速度_失败!");
+    }
 
     // 订阅 - RTK 航向角
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_RTK_YAW, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_RtkYaw_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - RTK 航向角_失败!");
+    }
 
     // 订阅 - RTK 位置信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_RTK_POSITION_INFO, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_RtkPositionInfo_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - RTK 位置信息_失败!");
+    }
 
     // 订阅 - RTK 航向信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_RTK_YAW_INFO, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_RtkYawInfo_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - RTK 航向信息_失败!");
+    }
 
     // 订阅 - 指南针信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_COMPASS, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_Compass_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 指南针信息_失败!");
+    }
 
     // 订阅 - 遥控摇杆信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_RC, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_Rc_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 遥控摇杆信息_失败!");
+    }
 
     // 订阅 - 云台角度
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_GIMBAL_ANGLES, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_GimbalAngles_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 云台角度_失败!");
+    }
 
     // 订阅 - 云台状态
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_GIMBAL_STATUS, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_GimbalStatus_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 云台状态_失败!");
+    }
 
     // 订阅 - 飞行状态
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_STATUS_FLIGHT, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_StatusFlight_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 飞行状态_失败!");
+    }
 
     // 订阅 - 飞行模式状态
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_STATUS_DISPLAYMODE, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_StatusDisplaymode_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 飞行模式状态_失败!");
+    }
 
     // 订阅 - 起落架状态
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_STATUS_LANDINGGEAR, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_StatusLandinggear_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 起落架状态_失败!");
+    }
 
     // 订阅 - 电机启动错误码
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_STATUS_MOTOR_START_ERROR, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_StatusMotorStartError_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 电机启动错误码_失败!");
+    }
 
     // 订阅 - 电池信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_BATTERY_INFO, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_BatteryInfo_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 电池信息_失败!");
+    }
 
     // 订阅 - 设备控制信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_CONTROL_DEVICE, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_ControlDevice_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 设备控制信息_失败!");
+    }
 
     // 订阅 - 硬件时钟同步
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_HARD_SYNC, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_HardSync_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 硬件时钟同步_失败!");
+    }
 
     // 订阅 - GPS 控制等级
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_GPS_CONTROL_LEVEL, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_GpsControlLevel_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - GPS 控制等级_失败!");
+    }
 
     // 订阅 - 带标记遥控遥感信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_RC_WITH_FLAG_DATA, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_RcWithFlagData_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 带标记遥控遥感信息_失败!");
+    }
 
     // 订阅 - 电调数据
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_ESC_DATA, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_EscData_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 电调数据_失败!");
+    }
 
     // 订阅 - RTK 连接状态
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_RTK_CONNECT_STATUS, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_RtkConnectStatus_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - RTK 连接状态_失败!");
+    }
 
     // 订阅 - 云台控制模式
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_GIMBAL_CONTROL_MODE, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_GimbalControlMode_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 云台控制模式_失败!");
+    }
 
     // 订阅 - 飞行异常信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_FLIGHT_ANOMALY, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_FlightAnomaly_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 飞行异常信息_失败!");
+    }
 
     // 订阅 - 笛卡尔坐标位置
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_POSITION_VO, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_PositionVo_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 笛卡尔坐标位置_失败!");
+    }
 
     // 订阅 - 避障数据
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_AVOID_DATA, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_AvoidData_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 避障数据_失败!");
+    }
 
     // 订阅 - 返航点设置状态
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_HOME_POINT_SET_STATUS, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_HomePointSetStatus_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 返航点设置状态_失败!");
+    }
 
     // 订阅 - 返航点信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_HOME_POINT_INFO, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_HomePointInfo_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 返航点信息_失败!");
+    }
 
     // 订阅 - 三云台信息 (适用 M300 RTK 与 M350 RTK, 上下三个云台的信息)
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_THREE_GIMBAL_DATA, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_ThreeGimbalData_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 三云台信息 (适用 M300 RTK 与 M350 RTK, 上下三个云台的信息)_失败!");
+    }
 
     // 订阅 - 1 号电池信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_BATTERY_SINGLE_INFO_INDEX1, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_BatterySingleInfoIndex1_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 1 号电池信息_失败!");
+    }
 
     // 订阅 - 2 号电池信息
     djiStat = DjiFcSubscription_SubscribeTopic(DJI_FC_SUBSCRIPTION_TOPIC_BATTERY_SINGLE_INFO_INDEX2, DJI_DATA_SUBSCRIPTION_TOPIC_1_HZ, F_BatterySingleInfoIndex2_Callback);
+    if (djiStat != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("订阅 - 2 号电池信息_失败!");
+    }
 }
