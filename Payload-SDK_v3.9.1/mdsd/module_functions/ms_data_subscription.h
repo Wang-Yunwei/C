@@ -1,12 +1,12 @@
 /**
  * ********************************************************************
- * Created by WangYunwei [2024-09-27]
+ * Created by WangYunwei [2024-09-27] 数据订阅
  * ********************************************************************
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef MDSD_FC_C_H
-#define MDSD_FC_SUBSCRIPTION_H
+#ifndef MS_DATA_SUBSCRIPTION_H
+#define MS_DATA_SUBSCRIPTION_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "dji_typedef.h"
