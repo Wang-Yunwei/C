@@ -1,16 +1,16 @@
 /**
  * ********************************************************************
- * Created by WangYunwei [2024-10-09] 基础相机功能
+ * Created by WangYunwei [2024-10-09] 基础相机管理
  * ********************************************************************
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef MS_CAMERA_BASIC_FUNCTION_H
-#define MS_CAMERA_BASIC_FUNCTION_H
+#ifndef MS_CAMERA_BASIC_MANAGE_H
+#define MS_CAMERA_BASIC_MANAGE_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "dji_typedef.h"
-#include "dji_payload_camera.h"
+#include "dji_camera_manager.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,12 +20,12 @@ extern "C" {
 typedef struct
 {
 
-} T_MsCameraBasicFunction;
+} T_MsCameraBasicManage;
 
 /* Exported constants --------------------------------------------------------*/
 
 /* Exported functions --------------------------------------------------------*/
-T_DjiReturnCode F_Camera_Basic_Function();
+T_DjiReturnCode F_Camera_Basic_Manage();
 
 #ifdef __cplusplus
 }
