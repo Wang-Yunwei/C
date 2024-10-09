@@ -1,19 +1,19 @@
 /**
  * ********************************************************************
- * Created by WangYunwei [2024-09-27]
+ * Created by WangYunwei [2024-09-27] 数据订阅
  * ********************************************************************
  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "dji_logger.h"
 
-#include "mdsd_fc_subscription.h"
+#include "data_subscription.h"
+
+/* Private types -------------------------------------------------------------*/
 
 /* Private constants ---------------------------------------------------------*/
 
-/* Private types -------------------------------------------------------------*/
-static bool s_userFcSubscriptionDataShow = false;
-static uint32_t s_userFcSubscriptionDataCnt = 0;
+/* Private variables ---------------------------------------------------------*/
 
 /* Private functions declaration ---------------------------------------------*/
 
@@ -820,9 +820,9 @@ static T_DjiReturnCode F_PositionVo_Callback(const uint8_t *data, uint16_t dataS
     USER_UTIL_UNUSED(dataSize);
 
     T_DjiFcSubscriptionPositionVO *positionVo = (T_DjiFcSubscriptionPositionVO *)data;
-    dji_f32_t x = positionVo->x; // 北 (best effort)，单位： m
-    dji_f32_t y = positionVo->y; // 东 (best effort)，单位： m
-    dji_f32_t z = positionVo->z; // 下， 单位： m
+    dji_f32_t x = positionVo->x; // 北 单位: m
+    dji_f32_t y = positionVo->y; // 东 单位: m
+    dji_f32_t z = positionVo->z; // 下 单位: m
     uint8_t xHealth = positionVo->xHealth;
     uint8_t yHealth = positionVo->yHealth;
     uint8_t zHealth = positionVo->zHealth;
@@ -844,12 +844,12 @@ static T_DjiReturnCode F_AvoidData_Callback(const uint8_t *data, uint16_t dataSi
     dji_f32_t back = avoidData->back;             // 后-距障碍物的距离 (m)
     dji_f32_t left = avoidData->left;             // 左-距障碍物的距离 (m)
     dji_f32_t up = avoidData->up;                 // 上-距障碍物的距离 (m)
-    uint8_t downHealth = avoidData->downHealth;   // 下传感器标志:0 -不工作，1 -工作
-    uint8_t frontHealth = avoidData->frontHealth; // 前传感器标志:0 -不工作，1 -工作
-    uint8_t rightHealth = avoidData->rightHealth; // 右传感器标志:0 -不工作，1 -工作
-    uint8_t backHealth = avoidData->backHealth;   // 后传感器标志:0 -不工作，1 -工作
-    uint8_t leftHealth = avoidData->leftHealth;   // 左传感器标志:0 -不工作，1 -工作
-    uint8_t upHealth = avoidData->upHealth;       // 上传感器健康标志:0 -不工作，1 -工作
+    uint8_t downHealth = avoidData->downHealth;   // 下传感器标志: 0-不工作, 1-工作
+    uint8_t frontHealth = avoidData->frontHealth; // 前传感器标志: 0-不工作, 1-工作
+    uint8_t rightHealth = avoidData->rightHealth; // 右传感器标志: 0-不工作, 1-工作
+    uint8_t backHealth = avoidData->backHealth;   // 后传感器标志: 0-不工作, 1-工作
+    uint8_t leftHealth = avoidData->leftHealth;   // 左传感器标志: 0-不工作, 1-工作
+    uint8_t upHealth = avoidData->upHealth;       // 上传感器健康标志: 0-不工作, 1-工作
 
     return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
 }
@@ -939,8 +939,6 @@ static T_DjiReturnCode F_BatterySingleInfoIndex2_Callback(const uint8_t *data, u
 
     return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
 }
-
-/* Private variables ---------------------------------------------------------*/
 
 /* Exported functions definition ---------------------------------------------*/
 T_DjiReturnCode F_FcSubscription()
