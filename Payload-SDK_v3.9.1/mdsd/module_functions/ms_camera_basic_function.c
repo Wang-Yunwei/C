@@ -5,6 +5,9 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
+#include "dji_logger.h"
+
+#include "ms_camera_basic_function.h"
 
 /* Private types -------------------------------------------------------------*/
 
@@ -15,3 +18,6 @@
 /* Private functions declaration ---------------------------------------------*/
 
 /* Exported functions definition ---------------------------------------------*/
+T_DjiReturnCode F_Camera_Basic_Function(){
+
+}

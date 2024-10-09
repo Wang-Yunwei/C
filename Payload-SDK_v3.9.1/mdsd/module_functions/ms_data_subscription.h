@@ -16,16 +16,16 @@
 extern "C" {
 #endif
 
-/* Exported constants --------------------------------------------------------*/
-
 /* Exported types ------------------------------------------------------------*/
 typedef struct
 {
 
-} T_FcSubscriptionData;
+} T_MsDataSubscription;
+
+/* Exported constants --------------------------------------------------------*/
 
 /* Exported functions --------------------------------------------------------*/
-T_DjiReturnCode F_FcSubscription();
+T_DjiReturnCode F_Data_Subscription();
 
 #ifdef __cplusplus
 }

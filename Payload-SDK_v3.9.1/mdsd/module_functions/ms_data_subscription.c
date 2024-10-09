@@ -941,7 +941,7 @@ static T_DjiReturnCode F_BatterySingleInfoIndex2_Callback(const uint8_t *data, u
 }
 
 /* Exported functions definition ---------------------------------------------*/
-T_DjiReturnCode F_FcSubscription()
+T_DjiReturnCode F_Data_Subscription()
 {
 
     T_DjiReturnCode djiStat;
