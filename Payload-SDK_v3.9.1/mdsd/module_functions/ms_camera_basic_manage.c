@@ -6,8 +6,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "dji_logger.h"
-#include "dji_camera_manager.h"
-#include "test_camera_manager.h"
+#include "ms_camera_basic_manage.h"
 
 /* Private types -------------------------------------------------------------*/
 typedef struct
@@ -145,7 +144,6 @@ T_DjiReturnCode F_Camera_Basic_Manage()
         USER_LOG_ERROR("设置安装位置 %d 相机的iso %d 失败, 错误码: 0x%08X", mountPosition, setIso, returnCode);
     }
 
-    // 控制相机执行指定的动作
     /**
      * 控制相机执行指定的动作
      *
@@ -181,6 +179,8 @@ T_DjiReturnCode F_Camera_Basic_Manage()
     }
 
     // 订阅相机实时三维点云数据 (仅支持 L2 相机, 可搭载在 M300 RTK、M350 RTK 上)
+
+    // 下载和删除相机原始媒体文件
 
     return returnCode;
 }
