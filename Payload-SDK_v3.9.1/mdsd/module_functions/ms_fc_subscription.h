@@ -5,8 +5,8 @@
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef MS_DATA_SUBSCRIPTION_H
-#define MS_DATA_SUBSCRIPTION_H
+#ifndef MS_FC_SUBSCRIPTION_H
+#define MS_FC_SUBSCRIPTION_H
 
 /* Includes ------------------------------------------------------------------*/
 #include "dji_typedef.h"
