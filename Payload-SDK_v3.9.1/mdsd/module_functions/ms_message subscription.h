@@ -25,7 +25,7 @@ typedef struct
 /* Exported constants --------------------------------------------------------*/
 
 /* Exported functions --------------------------------------------------------*/
-T_DjiReturnCode F_Data_Subscription();
+T_DjiReturnCode F_Message_Subscription();
 
 #ifdef __cplusplus
 }
