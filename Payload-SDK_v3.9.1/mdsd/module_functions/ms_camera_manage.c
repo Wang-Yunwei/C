@@ -42,6 +42,25 @@ static const T_DjiTestCameraTypeStr s_cameraTypeStrList[] = {
 };
 
 /* Private functions declaration ---------------------------------------------*/
+/**
+ * 初始化摄像头管理模块
+ */
+static void F_Init()
+{
+    T_DjiReturnCode returnCode = DjiCameraManager_Init();
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("初始化相机管理器失败, 错误编码: 0x%08X\r\n", returnCode);
+    }
+}
+
+/**
+ * 反初始化摄像头管理模块
+ */
+static void F_DeInit()
+{
+    T_DjiReturnCode returnCode = DjiCameraManager_DeInit();
+}
 
 /**
  * 选定挂载位置的相机类型 - 获取
@@ -92,7 +111,7 @@ static void F_CameraType_Get()
 
 /**
  * 选定挂载位置的相机固件版本 - 获取
- * 
+ *
  * T_DjiCameraManagerFirmwareVersion
  *      uint8_t firmware_version[4]
  *          - #define DJI_VERSION_MAJOR     3   // DJI SDK 主版本号, 当有不兼容的 API 更改时, 范围从 0 到 99
@@ -180,7 +199,7 @@ static void F_ShootPhotoMode_Get()
 /**
  * 拍照 - 开始
  *      注: 相机必须处于拍照模式!
- * 
+ *
  * E_DjiCameraManagerShootPhotoMode // 同 F_ShootPhotoMode_Set()
  */
 static void F_StartShootPhoto(E_DjiCameraManagerShootPhotoMode mode)
@@ -1489,16 +1508,11 @@ static void F_RecordPointCloud_Stop()
 }
 
 /* Exported functions definition ---------------------------------------------*/
-T_DjiReturnCode F_Camera_Basic_Manage()
+T_DjiReturnCode F_Camera_Manage()
 {
     T_DjiReturnCode returnCode;
 
     // 初始化相机管理功能模块
-    returnCode = DjiCameraManager_Init();
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
-    {
-        USER_LOG_ERROR("初始化相机管理器失败, 错误编码: 0x%08X\r\n", returnCode);
-    }
 
     E_DjiCameraManagerISO getIso;
     E_DjiCameraManagerISO setIso;
