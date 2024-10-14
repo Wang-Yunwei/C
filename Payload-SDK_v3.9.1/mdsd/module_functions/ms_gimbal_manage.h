@@ -5,11 +5,13 @@
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef MS_CAMERA_BASIC_MANAGE_H
-#define MS_CAMERA_BASIC_MANAGE_H
+#ifndef MS_GIMBAL_MANAGE_H
+#define MS_GIMBAL_MANAGE_H
 
 /* Includes ------------------------------------------------------------------*/
+#include "dji_logger.h"
 #include "dji_typedef.h"
+#include "dji_gimbal_manager.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -24,7 +26,7 @@ typedef struct
 /* Exported constants --------------------------------------------------------*/
 
 /* Exported functions --------------------------------------------------------*/
-T_DjiReturnCode F_Camera_Basic_Manage();
+T_DjiReturnCode F_Gimbal_Manage();
 
 #ifdef __cplusplus
 }
