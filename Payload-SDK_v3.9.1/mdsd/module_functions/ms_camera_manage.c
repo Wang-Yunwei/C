@@ -92,6 +92,14 @@ static void F_CameraType_Get()
 
 /**
  * 选定挂载位置的相机固件版本 - 获取
+ * 
+ * T_DjiCameraManagerFirmwareVersion
+ *      uint8_t firmware_version[4]
+ *          - #define DJI_VERSION_MAJOR     3   // DJI SDK 主版本号, 当有不兼容的 API 更改时, 范围从 0 到 99
+ *          - #define DJI_VERSION_MINOR     8   // DJI SDK 次版本号, 当以向后兼容的方式添加功能时会发生变化, 范围从 0 到 99
+ *          - #define DJI_VERSION_MODIFY    0   // DJI SDK 修改版本号, 当有向后兼容的错误修复更改时, 范围从 0 到 99。
+ *          - #define DJI_VERSION_BETA      0   // DJI SDK beta 版本信息, 发布版本为0, 当beta版本发布变化时, 范围从 0 到 255
+ *          - #define DJI_VERSION_BUILD     1929    // DJI SDK 版本构建信息, 当 jenkins 触发构建更改时, 范围从 0 到 65535
  */
 static void F_FirmwareVersion_Get()
 {
@@ -118,15 +126,15 @@ static void F_CameraConnectStatus_Get()
  *      注: 可将相机的工作模式设置为拍照、录像、回放、下载等, 当有任务正在进行时不可更改模式, 更改模式需要 1-2 s
  *
  * E_DjiCameraManagerWorkMode
- *      DJI_CAMERA_MANAGER_WORK_MODE_SHOOT_PHOTO = 0,            拍照模式, 用户可在此模式下拍照
- *      DJI_CAMERA_MANAGER_WORK_MODE_RECORD_VIDEO = 1,           录像模式, 用户可在此模式下录制视频
- *      DJI_CAMERA_MANAGER_WORK_MODE_PLAYBACK = 2,               回放模式, 用户可预览和删除照片和视频
- *                                                                        适用于: Phantom 3 专业版、X3、X5、X5R、Phantom 4
- *                                                                        不支持: Z30、X5S、X4S、Phantom 4 Pro、Mavic Pro、Phantom 3标准版、Phantom 3 高级版、Phantom 3 4K 和 Osmo 系列
- *      DJI_CAMERA_MANAGER_WORK_MODE_MEDIA_DOWNLOAD = 3,         媒体下载模式, 用户可以下载媒体到移动设备, 不支持: 挂载在飞机上的 X5 和 X5R 摄像机
- *      DJI_CAMERA_MANAGER_WORK_MODE_BROADCAST = 4,              此模式可以录制视频, 此模式下, 分辨率和帧率设置为 1080i50(PAL) 或 720p60(NTSC) 照片拍摄仅能在视频录制时进行
- *                                                                         只支持通过更换模式为 RECORD_VIDEO 来退出直播模式, 仅Inspire 2 支持此模式
- *      DJI_CAMERA_MANAGER_WORK_MODE_WORK_MODE_UNKNOWN = 0xFF,   摄像机工作模式, 未知
+ *      DJI_CAMERA_MANAGER_WORK_MODE_SHOOT_PHOTO = 0,           // 拍照模式, 用户可在此模式下拍照
+ *      DJI_CAMERA_MANAGER_WORK_MODE_RECORD_VIDEO = 1,          // 录像模式, 用户可在此模式下录制视频
+ *      DJI_CAMERA_MANAGER_WORK_MODE_PLAYBACK = 2,              // 回放模式, 用户可预览和删除照片和视频
+ *                                                                      - 适用于: Phantom 3 专业版、X3、X5、X5R、Phantom 4
+ *                                                                      - 不支持: Z30、X5S、X4S、Phantom 4 Pro、Mavic Pro、Phantom 3标准版、Phantom 3 高级版、Phantom 3 4K 和 Osmo 系列
+ *      DJI_CAMERA_MANAGER_WORK_MODE_MEDIA_DOWNLOAD = 3,        // 媒体下载模式, 用户可以下载媒体到移动设备, 不支持: 挂载在飞机上的 X5 和 X5R 摄像机
+ *      DJI_CAMERA_MANAGER_WORK_MODE_BROADCAST = 4,             // 此模式可以录制视频, 此模式下, 分辨率和帧率设置为 1080i50(PAL) 或 720p60(NTSC) 照片拍摄仅能在视频录制时进行
+ *                                                                      - 只支持通过更换模式为 RECORD_VIDEO 来退出直播模式, 仅Inspire 2 支持此模式
+ *      DJI_CAMERA_MANAGER_WORK_MODE_WORK_MODE_UNKNOWN = 0xFF,  // 摄像机工作模式, 未知
  */
 static void F_Mode_Set(E_DjiCameraManagerWorkMode workMode)
 {
@@ -146,14 +154,14 @@ static void F_Mode_Get()
  * 选定挂载位置相机的拍照模式 - 设置
  *
  * E_DjiCameraManagerShootPhotoMode
- *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_SINGLE = 0x01,        单拍模式
- *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_HDR = 0x02,           HDR 模式, X5、X5R、XT、Z30、Phantom 4 Pro、X4S 和 X5S 相机不支持此模式
- *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_BURST = 0x04,         连拍模式, XT 相机不支持
- *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_AEB = 0x05,           AEB 模式, 可快速拍摄多张(默认三张) 不同曝光值的照片, XT 和 Z30 相机不支持
- *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_INTERVAL = 0x06,      定时拍摄模式, JPEG 的最小拍摄间隔为 2s, RAW 和 RAW+JPEG 的最小拍摄间隔为 10s, 部分机型的 RAW 和 RAW+JPEG 拍摄最小间隔为 5s
- *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_RAW_BURST = 0x09,     RAW 连拍模式, 仅 X5S 摄像机支持
- *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_REGIONAL_SR = 0x16,   区域拍摄模式, 支持 H20/H20T
- *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_UNKNOWN = 0xFF,       拍照模式, 未知
+ *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_SINGLE = 0x01,      // 单拍模式
+ *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_HDR = 0x02,         // HDR 模式, X5、X5R、XT、Z30、Phantom 4 Pro、X4S 和 X5S 相机不支持此模式
+ *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_BURST = 0x04,       // 连拍模式, XT 相机不支持
+ *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_AEB = 0x05,         // AEB 模式, 可快速拍摄多张(默认三张) 不同曝光值的照片, XT 和 Z30 相机不支持
+ *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_INTERVAL = 0x06,    // 定时拍摄模式, JPEG 的最小拍摄间隔为 2s, RAW 和 RAW+JPEG 的最小拍摄间隔为 10s, 部分机型的 RAW 和 RAW+JPEG 拍摄最小间隔为 5s
+ *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_RAW_BURST = 0x09,   // RAW 连拍模式, 仅 X5S 摄像机支持
+ *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_REGIONAL_SR = 0x16, // 区域拍摄模式, 支持 H20/H20T
+ *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_UNKNOWN = 0xFF,     // 拍照模式, 未知
  */
 static void F_ShootPhotoMode_Set(E_DjiCameraManagerShootPhotoMode mode)
 {
@@ -172,10 +180,16 @@ static void F_ShootPhotoMode_Get()
 /**
  * 拍照 - 开始
  *      注: 相机必须处于拍照模式!
+ * 
+ * E_DjiCameraManagerShootPhotoMode // 同 F_ShootPhotoMode_Set()
  */
 static void F_StartShootPhoto(E_DjiCameraManagerShootPhotoMode mode)
 {
     T_DjiReturnCode returnCode = DjiCameraManager_StartShootPhoto(mountPosition, mode);
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("安装位置 %d 相机拍摄照片失败, 错误码: 0x%08X", mountPosition, returnCode);
+    }
 }
 
 /**
@@ -192,9 +206,9 @@ static void F_StopShootPhoto()
  *      注: L1/P1 不支持此接口
  *
  * E_DjiCameraManagerCapturingState
- *      DJI_CAMERA_MANAGER_CAPTURING_STATE_IDLE = 0,     未拍摄
- *      DJI_CAMERA_MANAGER_CAPTURING_STATE_SINGLE = 1,   单次拍摄中
- *      DJI_CAMERA_MANAGER_CAPTURING_STATE_MULTI = 2,    多次拍摄中
+ *      DJI_CAMERA_MANAGER_CAPTURING_STATE_IDLE = 0,    // 未拍摄
+ *      DJI_CAMERA_MANAGER_CAPTURING_STATE_SINGLE = 1,  // 单次拍摄中
+ *      DJI_CAMERA_MANAGER_CAPTURING_STATE_MULTI = 2,   // 多次拍摄中
  */
 static void F_CapturingState_Get()
 {
@@ -206,13 +220,13 @@ static void F_CapturingState_Get()
  * 在连拍模式下设置连拍张数 - 设置
  *
  * E_DjiCameraBurstCount
- *      DJI_CAMERA_BURST_COUNT_2  = 2,         在连拍模式下每次连续拍摄的照片张数为 2
- *      DJI_CAMERA_BURST_COUNT_3 = 3,          在连拍模式下每次连续拍摄的照片张数为 3
- *      DJI_CAMERA_BURST_COUNT_5 = 5,          在连拍模式下每次连续拍摄的照片张数为 5
- *      DJI_CAMERA_BURST_COUNT_7 = 7,          在连拍模式下每次连续拍摄的照片张数为 7
- *      DJI_CAMERA_BURST_COUNT_10 = 10,        在连拍模式下每次连续拍摄的照片张数为 10, 仅被X4S、X5S、Phantom 4 Pro 相机支持
- *      DJI_CAMERA_BURST_COUNT_14 = 14,        在连拍模式下每次连续拍摄的照片张数为 14, 仅被X4S、X5S、Phantom 4 Pro 相机支持
- *      DJI_CAMERA_BURST_COUNT_KNOWN = 0xFF,   在连拍模式下每次连续拍摄的照片张数为 unknown
+ *      DJI_CAMERA_BURST_COUNT_2  = 2,          // 在连拍模式下每次连续拍摄的照片张数为 2
+ *      DJI_CAMERA_BURST_COUNT_3 = 3,           // 在连拍模式下每次连续拍摄的照片张数为 3
+ *      DJI_CAMERA_BURST_COUNT_5 = 5,           // 在连拍模式下每次连续拍摄的照片张数为 5
+ *      DJI_CAMERA_BURST_COUNT_7 = 7,           // 在连拍模式下每次连续拍摄的照片张数为 7
+ *      DJI_CAMERA_BURST_COUNT_10 = 10,         // 在连拍模式下每次连续拍摄的照片张数为 10, 仅被X4S、X5S、Phantom 4 Pro 相机支持
+ *      DJI_CAMERA_BURST_COUNT_14 = 14,         // 在连拍模式下每次连续拍摄的照片张数为 14, 仅被X4S、X5S、Phantom 4 Pro 相机支持
+ *      DJI_CAMERA_BURST_COUNT_KNOWN = 0xFF,    // 在连拍模式下每次连续拍摄的照片张数为 unknown
  */
 static void F_PhotoBurstCount_Set(E_DjiCameraBurstCount count)
 {
@@ -252,8 +266,8 @@ static void F_PhotoBurstCount_Get()
  *      注: 在此拍照模式下, 相机将拍摄一张照片,等待指定时间间隔,然后继续拍摄,直至完成所需数量的照片,该模式也支持热成像相机
  *
  * T_DjiCameraPhotoTimeIntervalSettings
- *      uint8_t captureCount; 指定间隔设置的总拍摄计数 0: 保留, 1~254: 数字, 255: 一直拍摄直到停止
- *      uint16_t timeIntervalSeconds; 指定两次拍摄之间的间隔时间，单位: s
+ *      uint8_t captureCount;   // 指定间隔设置的总拍摄计数 0: 保留, 1~254: 数字, 255: 一直拍摄直到停止
+ *      uint16_t timeIntervalSeconds;   // 指定两次拍摄之间的间隔时间，单位: s
  */
 static void F_PhotoTimeIntervalSettings_Set(T_DjiCameraPhotoTimeIntervalSettings intervalSetting)
 {
@@ -284,10 +298,10 @@ static void F_IntervalShootingRemainTime_Get()
  *      注: 设置镜头对焦模式, 自动对焦模式下, 目标点为焦点; 手动对焦模式下,若启用了对焦助手,目标点为缩小区域
  *
  * E_DjiCameraManagerFocusMode
- *      DJI_CAMERA_MANAGER_FOCUS_MODE_MANUAL = 0,       手动对焦模式, 在此模式下,用户可通过调整对焦环值来调整焦距
- *      DJI_CAMERA_MANAGER_FOCUS_MODE_AUTO = 1,         自动对焦模式, 对于 Z30 相机,焦点会自动计算,对于其他相机,用户可以设置一个对焦目标以自动计算焦点
- *      DJI_CAMERA_MANAGER_FOCUS_MODE_AFC = 2,          连续自动对焦模式, 仅支持固件版本为 V01.03.0000 或更高的 Mavic Pro、X4S 相机、Mavic 2 Zoom 相机和 Mavic 2 Pro 相机
- *      DJI_CAMERA_MANAGER_FOCUS_MODE_UNKNOWN = 0xFF,   相机对焦模式未知
+ *      DJI_CAMERA_MANAGER_FOCUS_MODE_MANUAL = 0,       // 手动对焦模式, 在此模式下,用户可通过调整对焦环值来调整焦距
+ *      DJI_CAMERA_MANAGER_FOCUS_MODE_AUTO = 1,         // 自动对焦模式, 对于 Z30 相机,焦点会自动计算,对于其他相机,用户可以设置一个对焦目标以自动计算焦点
+ *      DJI_CAMERA_MANAGER_FOCUS_MODE_AFC = 2,          // 连续自动对焦模式, 仅支持固件版本为 V01.03.0000 或更高的 Mavic Pro、X4S 相机、Mavic 2 Zoom 相机和 Mavic 2 Pro 相机
+ *      DJI_CAMERA_MANAGER_FOCUS_MODE_UNKNOWN = 0xFF,   // 相机对焦模式未知
  */
 static void F_FocusMode_Set(E_DjiCameraManagerFocusMode focusMode)
 {
@@ -308,8 +322,8 @@ static void F_FocusMode_Get()
  *      注: 设置镜头对焦目标点, 自动对焦模式下,目标点为焦点; 手动对焦模式下, 若启用了对焦助手, 目标点为缩小区域
  *
  * T_DjiCameraManagerFocusPosData
- *      dji_f32_t focusX;   指定水平区域坐标, 该参数介于 0 和 1 之间。点 [0.0, 0.0] 表示屏幕的左上角
- *      dji_f32_t focusY;   指定垂直区域坐标, 此参数介于 0 和 1 之间。
+ *      dji_f32_t focusX;   // 指定水平区域坐标, 该参数介于 0 和 1 之间; 点 [0.0, 0.0] 表示屏幕的左上角
+ *      dji_f32_t focusY;   // 指定垂直区域坐标, 此参数介于 0 和 1 之间
  */
 static void F_FocusTarget_Set(T_DjiCameraManagerFocusPosData focusPosData)
 {
@@ -328,6 +342,19 @@ static void F_FocusTarget_Get()
 /**
  * 选定挂载位置相机的持续光学变焦 - 开启
  *      注: 以指定速度和方向开始改变镜头的焦距, 当达到最大或最小焦距,或调用 DjiCameraManager_StopContinuousOpticalZoom 时,焦距变化将停止
+ *
+ * E_DjiCameraZoomDirection
+ *      DJI_CAMERA_ZOOM_DIRECTION_OUT = 0,  // 镜头向远方移动, 变焦倍数变小
+ *      DJI_CAMERA_ZOOM_DIRECTION_IN = 1,   // 镜头向近处移动, 变焦倍数变大
+ *
+ * E_DjiCameraZoomSpeed
+ *      DJI_CAMERA_ZOOM_SPEED_SLOWEST = 72, // 镜头变焦处于最慢速度
+ *      DJI_CAMERA_ZOOM_SPEED_SLOW = 73,    // 镜头变焦处于慢速
+ *      DJI_CAMERA_ZOOM_SPEED_MODERATELY_SLOW = 74, // 镜头变焦处于比普通速度稍慢的速度
+ *      DJI_CAMERA_ZOOM_SPEED_NORMAL = 75,  // 镜头变焦处于正常速度
+ *      DJI_CAMERA_ZOOM_SPEED_MODERATELY_FAST = 76, // 镜头的变焦速度比正常速度略快
+ *      DJI_CAMERA_ZOOM_SPEED_FAST = 77,    // 镜头变焦处于快速
+ *      DJI_CAMERA_ZOOM_SPEED_FASTEST = 78, // 镜头变焦处于最快速度
  */
 static void F_StartContinuousOpticalZoom(E_DjiCameraZoomDirection zoomDirection, E_DjiCameraZoomSpeed zoomSpeed)
 {
@@ -336,7 +363,7 @@ static void F_StartContinuousOpticalZoom(E_DjiCameraZoomDirection zoomDirection,
 
 /**
  * 选定挂载位置相机的持续光学变焦 - 停止
- *      注: 当在 DjiCameraManager_StartContinuousOpticalZoom 调用中处于焦距变化状态时,调用此函数以停止焦距变化
+ *      注: 当在 DjiCameraManager_StartContinuousOpticalZoom 调用中处于焦距变化状态时, 调用此函数以停止焦距变化
  */
 static void F_StopContinuousOpticalZoom()
 {
@@ -347,9 +374,11 @@ static void F_StopContinuousOpticalZoom()
  * 选定挂载位置相机的光学变焦参数 - 设置
  *      注: 在此接口中, 将根据您设置的变焦参数进行变焦操作
  *
+ * dji_f32_t factor: 变焦参数
+ *
  * E_DjiCameraZoomDirection
- *      DJI_CAMERA_ZOOM_DIRECTION_OUT = 0,   镜头向远方移动,变焦倍数变小
- *      DJI_CAMERA_ZOOM_DIRECTION_IN = 1,    镜头向近处移动,变焦倍数变大
+ *      DJI_CAMERA_ZOOM_DIRECTION_OUT = 0,  // 镜头向远方移动,变焦倍数变小
+ *      DJI_CAMERA_ZOOM_DIRECTION_IN = 1,   // 镜头向近处移动,变焦倍数变大
  */
 static void F_OpticalZoomParam_Set(E_DjiCameraZoomDirection zoomDirection, dji_f32_t factor)
 {
@@ -371,6 +400,8 @@ static void F_OpticalZoomParam_Get()
 
 /**
  * 指定挂载位置相机的红外变焦参数 - 设置
+ *
+ * dji_f32_t factor: 目标变焦参数
  */
 static void F_InfraredZoomParam_Set(dji_f32_t factor)
 {
@@ -393,13 +424,13 @@ static void F_TapZoomEnabled_Set(bool param)
  */
 static void F_GetTapZoomEnabled_Get()
 {
-    bool param; // 启用 / 禁用
+    bool param;
     T_DjiReturnCode returnCode = DjiCameraManager_GetTapZoomEnabled(mountPosition, &param);
 }
 
 /**
  * 指定挂载位置相机的点击变焦倍数 - 设置
- *      注: Tap-zoom 使用一个系数来改变缩放比例。TapZoom 的最终缩放比例为：当前缩放比例 x 系数
+ *      注: Tap-zoom 使用一个系数来改变缩放比例, TapZoom 的最终缩放比例为当前缩放比例 x 系数
  *
  * uint8_t tapZoomMultiplier: 倍数范围为 1~5, 倍数为 1 时,变焦不会改变
  */
@@ -422,8 +453,8 @@ static void F_TapZoomMultiplier_Get()
  *      注: 在目标处进行 Tap-zoom, 只有在启用了 TapZoom 时才能调用, 设置新目标后, 云台将旋转并将目标定位在屏幕中心, 同时相机将通过乘以 TapZoom 系数进行缩放
  *
  * T_DjiCameraManagerTapZoomPosData
- *      dji_f32_t focusX;   指定水平区域坐标, 该参数介于 0 和 1 之间。点 [0.0, 0.0] 表示屏幕的左上角
- *      dji_f32_t focusY;   指定垂直区域坐标, 此参数介于 0 和 1 之间。
+ *      dji_f32_t focusX;   // 指定水平区域坐标, 该参数介于 0 和 1 之间; 点 [0.0, 0.0] 表示屏幕的左上角
+ *      dji_f32_t focusY;   // 指定垂直区域坐标, 此参数介于 0 和 1 之间
  */
 static void F_TapZoomAtTarget_Set(T_DjiCameraManagerTapZoomPosData tapZoomPos)
 {
@@ -432,6 +463,40 @@ static void F_TapZoomAtTarget_Set(T_DjiCameraManagerTapZoomPosData tapZoomPos)
 
 /**
  * 相机焦距环的值范围 - 获取
+ *
+ * T_DjiCameraManagerRangeList
+ *      uint8_t size;
+ *      union {
+ *          E_DjiCameraManagerPhotoStorageFormat photoStorageFormat[16];
+ *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RAW = 0,
+ *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_JPEG = 1,
+ *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RAW_JPEG = 2,
+ *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_YUV = 3,    // 保存为 YUV 格式的图片
+ *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RJPEG = 7,  // 热辐射 JPEG
+ *          E_DjiCameraManagerVideoStorageFormat videoStorageFormat[16];
+ *              DJI_CAMERA_MANAGER_VIDEO_STORAGE_FORMAT_MOV = 0,
+ *              DJI_CAMERA_MANAGER_VIDEO_STORAGE_FORMAT_MP4 = 1,
+ *          E_DjiCameraManagerPhotoRatio photoRatioFormat[16];
+ *              DJI_CAMERA_MANAGER_PHOTO_RATIO_4X3 = 0,
+ *              DJI_CAMERA_MANAGER_PHOTO_RATIO_16X9 = 1,
+ *              DJI_CAMERA_MANAGER_PHOTO_RATIO_3X2 = 2,
+ *              DJI_CAMERA_MANAGER_PHOTO_RATIO_1X1 = 3,
+ *              DJI_CAMERA_MANAGER_PHOTO_RATIO_18X3 = 4,
+ *              DJI_CAMERA_MANAGER_PHOTO_RATIO_5X4 = 5,
+ *          E_DjiCameraManagerStreamSource streamSource[16];
+ *              DJI_CAMERA_MANAGER_SOURCE_DEFAULT_CAM = 0x0,
+ *              DJI_CAMERA_MANAGER_SOURCE_WIDE_CAM = 0x1,
+ *              DJI_CAMERA_MANAGER_SOURCE_ZOOM_CAM = 0x2,
+ *              DJI_CAMERA_MANAGER_SOURCE_IR_CAM = 0x3,
+ *              DJI_CAMERA_MANAGER_SOURCE_VISIBLE_CAM = 0x7,
+ *          E_DjiCameraManagerStreamStorage streamStorage[16];  // 同 E_DjiCameraManagerStreamSource
+ *          E_DjiCameraManagerNightSceneMode nightSceneMode[16];
+ *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_DISABLE = 0,
+ *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_ENABLE = 1,
+ *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_AUTO = 2,
+ *      };
+ *      uint32_t minValue;
+ *      uint32_t maxValue;
  */
 static void F_FocusRingRange_Get()
 {
@@ -441,6 +506,7 @@ static void F_FocusRingRange_Get()
 
 /**
  * 相机焦距环的值 - 设置
+ * uint16_t value：焦距环的值
  */
 static void F_FocusRingValue_Set(uint16_t value)
 {
@@ -461,11 +527,11 @@ static void F_FocusRingValue_Get()
  *      注: 不同的曝光模式定义了光圈、快门速度、ISO 是否可以自动或手动设置; 除手动模式外, 所有模式都可以更改曝光补偿
  *
  * E_DjiCameraManagerExposureMode
- *      DJI_CAMERA_MANAGER_EXPOSURE_MODE_PROGRAM_AUTO = 1,         自动程序模式
- *      DJI_CAMERA_MANAGER_EXPOSURE_MODE_SHUTTER_PRIORITY = 2,     快门优先模式
- *      DJI_CAMERA_MANAGER_EXPOSURE_MODE_APERTURE_PRIORITY = 3,    光圈优先模式
- *      DJI_CAMERA_MANAGER_EXPOSURE_MODE_EXPOSURE_MANUAL = 4,      手动模式
- *      DJI_CAMERA_MANAGER_EXPOSURE_MODE_EXPOSURE_UNKNOWN = 0xFF   曝光模式未知
+ *      DJI_CAMERA_MANAGER_EXPOSURE_MODE_PROGRAM_AUTO = 1,          // 自动程序模式
+ *      DJI_CAMERA_MANAGER_EXPOSURE_MODE_SHUTTER_PRIORITY = 2,      // 快门优先模式
+ *      DJI_CAMERA_MANAGER_EXPOSURE_MODE_APERTURE_PRIORITY = 3,     // 光圈优先模式
+ *      DJI_CAMERA_MANAGER_EXPOSURE_MODE_EXPOSURE_MANUAL = 4,       // 手动模式
+ *      DJI_CAMERA_MANAGER_EXPOSURE_MODE_EXPOSURE_UNKNOWN = 0xFF    // 曝光模式未知
  */
 static void F_ExposureMode_Set(E_DjiCameraManagerExposureMode mode)
 {
@@ -487,21 +553,25 @@ static void F_ExposureMode_Get()
  *      注: 只有在相机曝光模式为手动模式时才可以设置 ISO 值
  *
  * E_DjiCameraManagerISO
- *      DJI_CAMERA_MANAGER_ISO_AUTO = 0x00,     自动设置 ISO 值, 并非所有相机的手动模式下可用
- *      DJI_CAMERA_MANAGER_ISO_100 = 0x03,      ISO 值设置为 100
- *      DJI_CAMERA_MANAGER_ISO_200 = 0x04,      ISO 值设置为 200
- *      DJI_CAMERA_MANAGER_ISO_400 = 0x05,      ISO 值设置为 400
- *      DJI_CAMERA_MANAGER_ISO_800 = 0x06,      ISO 值设置为 600
- *      DJI_CAMERA_MANAGER_ISO_1600 = 0x07,     ISO 值设置为 1600
- *      DJI_CAMERA_MANAGER_ISO_3200 = 0x08,     ISO 值设置为 3200
- *      DJI_CAMERA_MANAGER_ISO_6400 = 0x09,     ISO 值设置为 64000
- *      DJI_CAMERA_MANAGER_ISO_12800 = 0x0A,    ISO 值设置为 12800
- *      DJI_CAMERA_MANAGER_ISO_25600 = 0x0B,    ISO 值设置为 25600
- *      DJI_CAMERA_MANAGER_ISO_FIXED = 0xFF,    ISO 值由相机固件固定, 当相机色彩设置为 D_LOG 时, 相机将把 ISO 固定在一个特定的值以优化性能
+ *      DJI_CAMERA_MANAGER_ISO_AUTO = 0x00,     // 自动设置 ISO 值, 并非所有相机的手动模式下可用
+ *      DJI_CAMERA_MANAGER_ISO_100 = 0x03,      // ISO 值设置为 100
+ *      DJI_CAMERA_MANAGER_ISO_200 = 0x04,      // ISO 值设置为 200
+ *      DJI_CAMERA_MANAGER_ISO_400 = 0x05,      // ISO 值设置为 400
+ *      DJI_CAMERA_MANAGER_ISO_800 = 0x06,      // ISO 值设置为 600
+ *      DJI_CAMERA_MANAGER_ISO_1600 = 0x07,     // ISO 值设置为 1600
+ *      DJI_CAMERA_MANAGER_ISO_3200 = 0x08,     // ISO 值设置为 3200
+ *      DJI_CAMERA_MANAGER_ISO_6400 = 0x09,     // ISO 值设置为 64000
+ *      DJI_CAMERA_MANAGER_ISO_12800 = 0x0A,    // ISO 值设置为 12800
+ *      DJI_CAMERA_MANAGER_ISO_25600 = 0x0B,    // ISO 值设置为 25600
+ *      DJI_CAMERA_MANAGER_ISO_FIXED = 0xFF,    // ISO 值由相机固件固定, 当相机色彩设置为 D_LOG 时, 相机将把 ISO 固定在一个特定的值以优化性能
  */
 static void F_ISO_Set(E_DjiCameraManagerISO iso)
 {
     T_DjiReturnCode returnCode = DjiCameraManager_SetISO(mountPosition, iso);
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS && returnCode != DJI_ERROR_CAMERA_MANAGER_MODULE_CODE_UNSUPPORTED_COMMAND)
+    {
+        USER_LOG_ERROR("设置安装位置 %d 相机的iso %d 失败, 错误码: 0x%08X", mountPosition, iso, returnCode);
+    }
 }
 
 /**
@@ -511,6 +581,11 @@ static void F_ISO_Get(E_DjiCameraManagerISO iso)
 {
     E_DjiCameraManagerISO iso;
     T_DjiReturnCode returnCode = DjiCameraManager_GetISO(mountPosition, &iso);
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS && returnCode != DJI_ERROR_CAMERA_MANAGER_MODULE_CODE_UNSUPPORTED_COMMAND)
+    {
+        USER_LOG_ERROR("获得安装位置 %d 相机的iso失败, 错误编码: 0x%08X", mountPosition, returnCode);
+        return returnCode;
+    }
 }
 
 /**
@@ -518,39 +593,39 @@ static void F_ISO_Get(E_DjiCameraManagerISO iso)
  *      注: 曝光模式必须为 DJI_CAMERA_MANAGER_EXPOSURE_MODE_EXPOSURE_MANUAL 或 DJI_CAMERA_MANAGER_EXPOSURE_MODE_APERTURE_PRIORITY
  *
  * E_DjiCameraManagerAperture
- *      DJI_CAMERA_MANAGER_APERTURE_F_1_DOT_6 = 160,    光圈值为 f/1.6, 只有 Z30 相机支持
- *      DJI_CAMERA_MANAGER_APERTURE_F_1_DOT_7 = 170,    光圈值为 f/1.7
- *      DJI_CAMERA_MANAGER_APERTURE_F_1_DOT_8 = 180,    光圈值为 f/1.8
- *      DJI_CAMERA_MANAGER_APERTURE_F_2 = 200,          光圈值为 f/2
- *      DJI_CAMERA_MANAGER_APERTURE_F_2_DOT_2 = 220,    光圈值为 f/2.2
- *      DJI_CAMERA_MANAGER_APERTURE_F_2_DOT_4 = 240,    光圈值为 f/2.4, 只有 Z30 相机支持
- *      DJI_CAMERA_MANAGER_APERTURE_F_2_DOT_5 = 250,    光圈值为 f/2.5
- *      DJI_CAMERA_MANAGER_APERTURE_F_2_DOT_6 = 260,    光圈值为 f/2.6
- *      DJI_CAMERA_MANAGER_APERTURE_F_2_DOT_8 = 280,    光圈值为 f/2.8
- *      DJI_CAMERA_MANAGER_APERTURE_F_3_DOT_2 = 320,    光圈值为 f/3.2
- *      DJI_CAMERA_MANAGER_APERTURE_F_3_DOT_4 = 340,    光圈值为 f/3.4
- *      DJI_CAMERA_MANAGER_APERTURE_F_3_DOT_5 = 350,    光圈值为 f/3.5
- *      DJI_CAMERA_MANAGER_APERTURE_F_4 = 400,          光圈值为 f/4
- *      DJI_CAMERA_MANAGER_APERTURE_F_4_DOT_5 = 450,    光圈值为 f/4.5
- *      DJI_CAMERA_MANAGER_APERTURE_F_4_DOT_8 = 480,    光圈值为 f/4.8
- *      DJI_CAMERA_MANAGER_APERTURE_F_5 = 500,          光圈值为 f/5
- *      DJI_CAMERA_MANAGER_APERTURE_F_5_DOT_6 = 560,    光圈值为 f/5.6
- *      DJI_CAMERA_MANAGER_APERTURE_F_6_DOT_3 = 630,    光圈值为 f/6.3
- *      DJI_CAMERA_MANAGER_APERTURE_F_6_DOT_8 = 680,    光圈值为 f/6.8
- *      DJI_CAMERA_MANAGER_APERTURE_F_7_DOT_1 = 710,    光圈值为 f/7.1
- *      DJI_CAMERA_MANAGER_APERTURE_F_8 = 800,          光圈值为 f/8
- *      DJI_CAMERA_MANAGER_APERTURE_F_9 = 900,          光圈值为 f/9
- *      DJI_CAMERA_MANAGER_APERTURE_F_9_DOT_6 = 960,    光圈值为 f/9.6
- *      DJI_CAMERA_MANAGER_APERTURE_F_10 = 1000,        光圈值为 f/10
- *      DJI_CAMERA_MANAGER_APERTURE_F_11 = 1100,        光圈值为 f/11
- *      DJI_CAMERA_MANAGER_APERTURE_F_13 = 1300,        光圈值为 f/13
- *      DJI_CAMERA_MANAGER_APERTURE_F_14 = 1400,        光圈值为 f/14
- *      DJI_CAMERA_MANAGER_APERTURE_F_16 = 1600,        光圈值为 f/16
- *      DJI_CAMERA_MANAGER_APERTURE_F_18 = 1800,        光圈值为 f/18
- *      DJI_CAMERA_MANAGER_APERTURE_F_19 = 1900,        光圈值为 f/19
- *      DJI_CAMERA_MANAGER_APERTURE_F_20 = 2000,        光圈值为 f/20
- *      DJI_CAMERA_MANAGER_APERTURE_F_22 = 2200,        光圈值为 f/22
- *      DJI_CAMERA_MANAGER_APERTURE_F_UNKNOWN = 0xFFFF, 光圈值为未知
+ *      DJI_CAMERA_MANAGER_APERTURE_F_1_DOT_6 = 160,    // 光圈值为 f/1.6, 只有 Z30 相机支持
+ *      DJI_CAMERA_MANAGER_APERTURE_F_1_DOT_7 = 170,    // 光圈值为 f/1.7
+ *      DJI_CAMERA_MANAGER_APERTURE_F_1_DOT_8 = 180,    // 光圈值为 f/1.8
+ *      DJI_CAMERA_MANAGER_APERTURE_F_2 = 200,          // 光圈值为 f/2
+ *      DJI_CAMERA_MANAGER_APERTURE_F_2_DOT_2 = 220,    // 光圈值为 f/2.2
+ *      DJI_CAMERA_MANAGER_APERTURE_F_2_DOT_4 = 240,    // 光圈值为 f/2.4, 只有 Z30 相机支持
+ *      DJI_CAMERA_MANAGER_APERTURE_F_2_DOT_5 = 250,    // 光圈值为 f/2.5
+ *      DJI_CAMERA_MANAGER_APERTURE_F_2_DOT_6 = 260,    // 光圈值为 f/2.6
+ *      DJI_CAMERA_MANAGER_APERTURE_F_2_DOT_8 = 280,    // 光圈值为 f/2.8
+ *      DJI_CAMERA_MANAGER_APERTURE_F_3_DOT_2 = 320,    // 光圈值为 f/3.2
+ *      DJI_CAMERA_MANAGER_APERTURE_F_3_DOT_4 = 340,    // 光圈值为 f/3.4
+ *      DJI_CAMERA_MANAGER_APERTURE_F_3_DOT_5 = 350,    // 光圈值为 f/3.5
+ *      DJI_CAMERA_MANAGER_APERTURE_F_4 = 400,          // 光圈值为 f/4
+ *      DJI_CAMERA_MANAGER_APERTURE_F_4_DOT_5 = 450,    // 光圈值为 f/4.5
+ *      DJI_CAMERA_MANAGER_APERTURE_F_4_DOT_8 = 480,    // 光圈值为 f/4.8
+ *      DJI_CAMERA_MANAGER_APERTURE_F_5 = 500,          // 光圈值为 f/5
+ *      DJI_CAMERA_MANAGER_APERTURE_F_5_DOT_6 = 560,    // 光圈值为 f/5.6
+ *      DJI_CAMERA_MANAGER_APERTURE_F_6_DOT_3 = 630,    // 光圈值为 f/6.3
+ *      DJI_CAMERA_MANAGER_APERTURE_F_6_DOT_8 = 680,    // 光圈值为 f/6.8
+ *      DJI_CAMERA_MANAGER_APERTURE_F_7_DOT_1 = 710,    // 光圈值为 f/7.1
+ *      DJI_CAMERA_MANAGER_APERTURE_F_8 = 800,          // 光圈值为 f/8
+ *      DJI_CAMERA_MANAGER_APERTURE_F_9 = 900,          // 光圈值为 f/9
+ *      DJI_CAMERA_MANAGER_APERTURE_F_9_DOT_6 = 960,    // 光圈值为 f/9.6
+ *      DJI_CAMERA_MANAGER_APERTURE_F_10 = 1000,        // 光圈值为 f/10
+ *      DJI_CAMERA_MANAGER_APERTURE_F_11 = 1100,        // 光圈值为 f/11
+ *      DJI_CAMERA_MANAGER_APERTURE_F_13 = 1300,        // 光圈值为 f/13
+ *      DJI_CAMERA_MANAGER_APERTURE_F_14 = 1400,        // 光圈值为 f/14
+ *      DJI_CAMERA_MANAGER_APERTURE_F_16 = 1600,        // 光圈值为 f/16
+ *      DJI_CAMERA_MANAGER_APERTURE_F_18 = 1800,        // 光圈值为 f/18
+ *      DJI_CAMERA_MANAGER_APERTURE_F_19 = 1900,        // 光圈值为 f/19
+ *      DJI_CAMERA_MANAGER_APERTURE_F_20 = 2000,        // 光圈值为 f/20
+ *      DJI_CAMERA_MANAGER_APERTURE_F_22 = 2200,        // 光圈值为 f/22
+ *      DJI_CAMERA_MANAGER_APERTURE_F_UNKNOWN = 0xFFFF, // 光圈值为未知
  */
 static void F_Aperture_Set(E_DjiCameraManagerAperture aperture)
 {
@@ -573,74 +648,74 @@ static void F_Aperture_Get()
  *          前提条件: 只有在相机曝光模式为 DJI_CAMERA_MANAGER_EXPOSURE_MODE_EXPOSURE_MANUAL 或 DJI_CAMERA_MANAGER_EXPOSURE_MODE_SHUTTER_PRIORITY 时,才能设置快门速度
  *
  * E_DjiCameraManagerShutterSpeed
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_8000 = 0,     1/8000 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_6400 = 1,     1/6400 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_6000 = 2,     1/6000 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_5000 = 3,     1/5000 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_4000 = 4,     1/4000 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_3200 = 5,     1/3200 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_3000 = 6,     1/3000 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_2500 = 7,     1/2500 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_2000 = 8,     1/2000 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1600 = 9,     1/1600 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1500 = 10,    1/1500 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1250 = 11,    1/1250 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1000 = 12,    1/1000 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_800 = 13,     1/800 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_725 = 14,     1/725 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_640 = 15,     1/640 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_500 = 16,     1/500 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_400 = 17,     1/400 s
- *      JI_CAMERA_MANAGER_SHUTTER_SPEED_1_350 = 18,      1/350 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_320 = 19,     1/320 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_250 = 20,     1/250 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_240 = 21,     1/240 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_200 = 22,     1/200 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_180 = 23,     1/180 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_160 = 24,     1/160 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_125 = 25,     1/125 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_120 = 26,     1/120 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_100 = 27,     1/100 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_90 = 28,      1/90 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_80 = 29,      1/80 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_60 = 30,      1/60 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_50 = 31,      1/50 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_40 = 32,      1/40 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_30 = 33,      1/30 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_25 = 34,      1/25 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_20 = 35,      1/20 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_15 = 36,      1/15 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_12DOT5 = 37,  1/12.5
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_10 = 38,      1/10 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_8 = 39,       1/8 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_6DOT25 = 40,  1/6.25 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_5 = 41,       1/5 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_4 = 42,       1/4 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_3 = 43,       1/3 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_2DOT5 = 44,   1/2.5 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_2 = 45,       1/2 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1DOT67 = 46,  1/1.67 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1DOT25 = 47,  1/1.25 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1 = 48,         1.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1DOT3 = 49,     1.3 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1DOT6 = 50,     1.6 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_2 = 51,         2.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_2DOT5 = 52,     2.5 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_3 = 53,         3.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_3DOT2 = 54,     3.2 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_4 = 55,         4.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_5 = 56,         5.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_6 = 57,         6.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_7 = 58,         7.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_8 = 59,         8.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_9 = 60,         9.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_10 = 61,        10.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_13 = 62,        13.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_15 = 63,        15.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_20 = 64,        20.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_25 = 65,        25.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_30 = 66,        30.0 s
- *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_UNKNOWN = 0xFF, Unknown
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_8000 = 0,    // 1/8000 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_6400 = 1,    // 1/6400 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_6000 = 2,    // 1/6000 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_5000 = 3,    // 1/5000 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_4000 = 4,    // 1/4000 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_3200 = 5,    // 1/3200 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_3000 = 6,    // 1/3000 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_2500 = 7,    // 1/2500 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_2000 = 8,    // 1/2000 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1600 = 9,    // 1/1600 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1500 = 10,   // 1/1500 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1250 = 11,   // 1/1250 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1000 = 12,   // 1/1000 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_800 = 13,    // 1/800 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_725 = 14,    // 1/725 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_640 = 15,    // 1/640 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_500 = 16,    // 1/500 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_400 = 17,    // 1/400 s
+ *      JI_CAMERA_MANAGER_SHUTTER_SPEED_1_350 = 18,     // 1/350 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_320 = 19,    // 1/320 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_250 = 20,    // 1/250 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_240 = 21,    // 1/240 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_200 = 22,    // 1/200 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_180 = 23,    // 1/180 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_160 = 24,    // 1/160 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_125 = 25,    // 1/125 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_120 = 26,    // 1/120 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_100 = 27,    // 1/100 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_90 = 28, // 1/90 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_80 = 29, // 1/80 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_60 = 30, // 1/60 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_50 = 31, // 1/50 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_40 = 32, // 1/40 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_30 = 33, // 1/30 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_25 = 34, // 1/25 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_20 = 35, // 1/20 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_15 = 36, // 1/15 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_12DOT5 = 37, // 1/12.5
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_10 = 38, // 1/10 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_8 = 39,  // 1/8 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_6DOT25 = 40, // 1/6.25 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_5 = 41,  // 1/5 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_4 = 42,  // 1/4 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_3 = 43,  // 1/3 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_2DOT5 = 44,  // 1/2.5 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_2 = 45,  // 1/2 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1DOT67 = 46, // 1/1.67 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1_1DOT25 = 47, // 1/1.25 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1 = 48,    // 1.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1DOT3 = 49,    // 1.3 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_1DOT6 = 50,    // 1.6 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_2 = 51,    // 2.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_2DOT5 = 52,    // 2.5 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_3 = 53,    // 3.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_3DOT2 = 54,    // 3.2 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_4 = 55,    // 4.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_5 = 56,    // 5.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_6 = 57,    // 6.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_7 = 58,    // 7.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_8 = 59,    // 8.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_9 = 60,    // 9.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_10 = 61,   // 10.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_13 = 62,   // 13.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_15 = 63,   // 15.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_20 = 64,   // 20.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_25 = 65,   // 25.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_30 = 66,   // 30.0 s
+ *      DJI_CAMERA_MANAGER_SHUTTER_SPEED_UNKNOWN = 0xFF,    // Unknown
  */
 static void F_ShutterSpeed_Set(E_DjiCameraManagerShutterSpeed shutterSpeed)
 {
@@ -664,38 +739,38 @@ static void F_ShutterSpeed_Get()
  *                     DJI_CAMERA_MANAGER_EXPOSURE_APERTURE_PRIORITY
  *
  * E_DjiCameraManagerExposureCompensation
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_5_0 = 1,     相机曝光补偿为 -5.0ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_4_7 = 2,     相机曝光补偿为 -4.7ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_4_3 = 3,     相机曝光补偿为 -4.3ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_4_0 = 4,     相机曝光补偿为 -4.0ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_3_7 = 5,     相机曝光补偿为 -3.7ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_3_3 = 6,     相机曝光补偿为 -3.3ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_3_0 = 7,     相机曝光补偿为 -3.0ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_2_7 = 8,     相机曝光补偿为 -2.7ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_2_3 = 9,     相机曝光补偿为 -2.3ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_2_0 = 10,    相机曝光补偿为 -2.0ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_1_7 = 11,    相机曝光补偿为 -1.7ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_1_3 = 12,    相机曝光补偿为 -1.3ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_1_0 = 13,    相机曝光补偿为 -1.0ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_0_7 = 14,    相机曝光补偿为 -0.7ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_0_3 = 15,    相机曝光补偿为 -0.3ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_0_0 = 16,    相机曝光补偿为 0.0ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_0_3 = 17,    相机曝光补偿为 +0.3ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_0_7 = 18,    相机曝光补偿为 +0.7ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_1_0 = 19,    相机曝光补偿为 +1.0ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_1_3 = 20,    相机曝光补偿为 +1.3ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_1_7 = 21,    相机曝光补偿为 +1.7ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_2_0 = 22,    相机曝光补偿为 +2.0ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_2_3 = 23,    相机曝光补偿为 +2.3ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_2_7 = 24,    相机曝光补偿为 +2.7ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_3_0 = 25,    相机曝光补偿为 +3.0ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_3_3 = 26,    相机曝光补偿为 +3.3ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_3_7 = 27,    相机曝光补偿为 +3.7ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_4_0 = 28,    相机曝光补偿为 +4.0ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_4_3 = 29,    相机曝光补偿为 +4.3ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_4_7 = 30,    相机曝光补偿为 +4.7ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_5_0 = 31,    相机曝光补偿为 +5.0ev
- *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_FIXED = 0xFF,  相机曝光补偿为 fixed by the camera.
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_5_0 = 1,     // 相机曝光补偿为 -5.0ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_4_7 = 2,     // 相机曝光补偿为 -4.7ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_4_3 = 3,     // 相机曝光补偿为 -4.3ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_4_0 = 4,     // 相机曝光补偿为 -4.0ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_3_7 = 5,     // 相机曝光补偿为 -3.7ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_3_3 = 6,     // 相机曝光补偿为 -3.3ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_3_0 = 7,     // 相机曝光补偿为 -3.0ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_2_7 = 8,     // 相机曝光补偿为 -2.7ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_2_3 = 9,     // 相机曝光补偿为 -2.3ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_2_0 = 10,    // 相机曝光补偿为 -2.0ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_1_7 = 11,    // 相机曝光补偿为 -1.7ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_1_3 = 12,    // 相机曝光补偿为 -1.3ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_1_0 = 13,    // 相机曝光补偿为 -1.0ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_0_7 = 14,    // 相机曝光补偿为 -0.7ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_0_3 = 15,    // 相机曝光补偿为 -0.3ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_N_0_0 = 16,    // 相机曝光补偿为 0.0ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_0_3 = 17,    // 相机曝光补偿为 +0.3ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_0_7 = 18,    // 相机曝光补偿为 +0.7ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_1_0 = 19,    // 相机曝光补偿为 +1.0ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_1_3 = 20,    // 相机曝光补偿为 +1.3ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_1_7 = 21,    // 相机曝光补偿为 +1.7ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_2_0 = 22,    // 相机曝光补偿为 +2.0ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_2_3 = 23,    // 相机曝光补偿为 +2.3ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_2_7 = 24,    // 相机曝光补偿为 +2.7ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_3_0 = 25,    // 相机曝光补偿为 +3.0ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_3_3 = 26,    // 相机曝光补偿为 +3.3ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_3_7 = 27,    // 相机曝光补偿为 +3.7ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_4_0 = 28,    // 相机曝光补偿为 +4.0ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_4_3 = 29,    // 相机曝光补偿为 +4.3ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_4_7 = 30,    // 相机曝光补偿为 +4.7ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_P_5_0 = 31,    // 相机曝光补偿为 +5.0ev
+ *      DJI_CAMERA_MANAGER_EXPOSURE_COMPENSATION_FIXED = 0xFF,  // 相机曝光补偿为 fixed by the camera.
  */
 static void F_ExposureCompensation_Set(E_DjiCameraManagerExposureCompensation ev)
 {
@@ -780,6 +855,8 @@ static void F_RecordingTime_Get()
 
 /**
  * 相机流媒体数据源范围 - 获取
+ *
+ * T_DjiCameraManagerRangeList  // 同 F_FocusRingRange_Get()
  */
 static void F_StreamSourceRange_Get()
 {
@@ -804,6 +881,8 @@ static void F_StreamSource_Set(E_DjiCameraManagerStreamSource streamSource)
 
 /**
  * 照片存储格式范围 - 获取
+ *
+ * T_DjiCameraManagerRangeList  // 同 F_FocusRingRange_Get()
  */
 static void F_PhotoStorageFormatRange_Get()
 {
@@ -837,6 +916,8 @@ static void F_PhotoFormat_Get(E_DjiCameraManagerPhotoStorageFormat format)
 
 /**
  * 视频存储格式范围 - 获取
+ *
+ * T_DjiCameraManagerRangeList  // 同 F_FocusRingRange_Get()
  */
 static void F_VideoFormatRange_Get()
 {
@@ -868,39 +949,7 @@ static void F_VideoStorageFormat_Get()
 /**
  * 照片比例范围 - 获取
  *
- * T_DjiCameraManagerRangeList
- *      uint8_t size;
- *      union {
- *          E_DjiCameraManagerPhotoStorageFormat photoStorageFormat[16];
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RAW = 0,
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_JPEG = 1,
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RAW_JPEG = 2,
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_YUV = 3,    // 保存为 YUV 格式的图片
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RJPEG = 7,  // 热辐射 JPEG
- *          E_DjiCameraManagerVideoStorageFormat videoStorageFormat[16];
- *              DJI_CAMERA_MANAGER_VIDEO_STORAGE_FORMAT_MOV = 0,
- *              DJI_CAMERA_MANAGER_VIDEO_STORAGE_FORMAT_MP4 = 1,
- *          E_DjiCameraManagerPhotoRatio photoRatioFormat[16];
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_4X3 = 0,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_16X9 = 1,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_3X2 = 2,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_1X1 = 3,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_18X3 = 4,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_5X4 = 5,
- *          E_DjiCameraManagerStreamSource streamSource[16];
- *              DJI_CAMERA_MANAGER_SOURCE_DEFAULT_CAM = 0x0,
- *              DJI_CAMERA_MANAGER_SOURCE_WIDE_CAM = 0x1,
- *              DJI_CAMERA_MANAGER_SOURCE_ZOOM_CAM = 0x2,
- *              DJI_CAMERA_MANAGER_SOURCE_IR_CAM = 0x3,
- *              DJI_CAMERA_MANAGER_SOURCE_VISIBLE_CAM = 0x7,
- *          E_DjiCameraManagerStreamStorage streamStorage[16];  // 同 E_DjiCameraManagerStreamSource
- *          E_DjiCameraManagerNightSceneMode nightSceneMode[16];
- *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_DISABLE = 0,
- *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_ENABLE = 1,
- *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_AUTO = 2,
- *      };
- *      uint32_t minValue;
- *      uint32_t maxValue;
+ * T_DjiCameraManagerRangeList  // 同 F_FocusRingRange_Get()
  */
 static void F_PhotoRatioRange_Get()
 {
@@ -946,18 +995,18 @@ static void F_PhotoRatio_Get()
  *
  * T_DjiCameraManagerVideoFormat
  *      E_DjiCameraManagerVideoResolution videoResolution;
- *          DJI_CAMERA_MANAGER_VIDEO_RESOLUTION_640X480P = 0, // 640X480P
- *          DJI_CAMERA_MANAGER_VIDEO_RESOLUTION_1280X640P = 2, // 1280X640P
- *          DJI_CAMERA_MANAGER_VIDEO_RESOLUTION_1280X720P = 4, // 1280X720P
- *          DJI_CAMERA_MANAGER_VIDEO_RESOLUTION_1920X1080P = 10, // 1920X1080P
- *          DJI_CAMERA_MANAGER_VIDEO_RESOLUTION_3840X2160P = 16, // 3840X2160P
+ *          DJI_CAMERA_MANAGER_VIDEO_RESOLUTION_640X480P = 0,   // 640X480P
+ *          DJI_CAMERA_MANAGER_VIDEO_RESOLUTION_1280X640P = 2,  // 1280X640P
+ *          DJI_CAMERA_MANAGER_VIDEO_RESOLUTION_1280X720P = 4,  // 1280X720P
+ *          DJI_CAMERA_MANAGER_VIDEO_RESOLUTION_1920X1080P = 10,    // 1920X1080P
+ *          DJI_CAMERA_MANAGER_VIDEO_RESOLUTION_3840X2160P = 16,    // 3840X2160P
  *      E_DjiCameraManagerVideoFrameRate videoFrameRate;
- *          DJI_CAMERA_MANAGER_VIDEO_FRAME_RATE_15FPS = 0, // 14.985
- *          DJI_CAMERA_MANAGER_VIDEO_FRAME_RATE_25FPS = 2, // 25.000
- *          DJI_CAMERA_MANAGER_VIDEO_FRAME_RATE_30FPS = 3, // 29.970
- *          DJI_CAMERA_MANAGER_VIDEO_FRAME_RATE_60FPS = 6, // 59.940
+ *          DJI_CAMERA_MANAGER_VIDEO_FRAME_RATE_15FPS = 0,  // 14.985
+ *          DJI_CAMERA_MANAGER_VIDEO_FRAME_RATE_25FPS = 2,  // 25.000
+ *          DJI_CAMERA_MANAGER_VIDEO_FRAME_RATE_30FPS = 3,  // 29.970
+ *          DJI_CAMERA_MANAGER_VIDEO_FRAME_RATE_60FPS = 6,  // 59.940
  */
-static void F_GetVideoResolutionFrameRate_Get()
+static void F_VideoResolutionFrameRate_Get()
 {
     T_DjiCameraManagerVideoFormat videoParam;
     T_DjiReturnCode returnCode = DjiCameraManager_GetVideoResolutionFrameRate(mountPosition, &videoParam);
@@ -966,39 +1015,7 @@ static void F_GetVideoResolutionFrameRate_Get()
 /**
  * 夜景模式范围 - 获取
  *
- * T_DjiCameraManagerRangeList
- *      uint8_t size;
- *      union {
- *          E_DjiCameraManagerPhotoStorageFormat photoStorageFormat[16];
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RAW = 0,
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_JPEG = 1,
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RAW_JPEG = 2,
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_YUV = 3,    // 保存为 YUV 格式的图片
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RJPEG = 7,  // 热辐射 JPEG
- *          E_DjiCameraManagerVideoStorageFormat videoStorageFormat[16];
- *              DJI_CAMERA_MANAGER_VIDEO_STORAGE_FORMAT_MOV = 0,
- *              DJI_CAMERA_MANAGER_VIDEO_STORAGE_FORMAT_MP4 = 1,
- *          E_DjiCameraManagerPhotoRatio photoRatioFormat[16];
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_4X3 = 0,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_16X9 = 1,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_3X2 = 2,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_1X1 = 3,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_18X3 = 4,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_5X4 = 5,
- *          E_DjiCameraManagerStreamSource streamSource[16];
- *              DJI_CAMERA_MANAGER_SOURCE_DEFAULT_CAM = 0x0,
- *              DJI_CAMERA_MANAGER_SOURCE_WIDE_CAM = 0x1,
- *              DJI_CAMERA_MANAGER_SOURCE_ZOOM_CAM = 0x2,
- *              DJI_CAMERA_MANAGER_SOURCE_IR_CAM = 0x3,
- *              DJI_CAMERA_MANAGER_SOURCE_VISIBLE_CAM = 0x7,
- *          E_DjiCameraManagerStreamStorage streamStorage[16];  // 同 E_DjiCameraManagerStreamSource
- *          E_DjiCameraManagerNightSceneMode nightSceneMode[16];
- *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_DISABLE = 0,
- *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_ENABLE = 1,
- *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_AUTO = 2,
- *      };
- *      uint32_t minValue;
- *      uint32_t maxValue;
+ * T_DjiCameraManagerRangeList  // 同 F_FocusRingRange_Get()
  */
 static void F_NightSceneModeRange_Get()
 {
@@ -1032,40 +1049,7 @@ static void F_NightSceneMode_Get()
 /**
  * 拍摄或录像时流媒体数据源的存储范围 - 获取
  *
- * T_DjiCameraManagerRangeList
- *      uint8_t size;
- *      union {
- *          E_DjiCameraManagerPhotoStorageFormat photoStorageFormat[16];
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RAW = 0,
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_JPEG = 1,
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RAW_JPEG = 2,
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_YUV = 3,    // 保存为 YUV 格式的图片
- *              DJI_CAMERA_MANAGER_PHOTO_STORAGE_FORMAT_RJPEG = 7,  // 热辐射 JPEG
- *          E_DjiCameraManagerVideoStorageFormat videoStorageFormat[16];
- *              DJI_CAMERA_MANAGER_VIDEO_STORAGE_FORMAT_MOV = 0,
- *              DJI_CAMERA_MANAGER_VIDEO_STORAGE_FORMAT_MP4 = 1,
- *          E_DjiCameraManagerPhotoRatio photoRatioFormat[16];
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_4X3 = 0,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_16X9 = 1,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_3X2 = 2,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_1X1 = 3,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_18X3 = 4,
- *              DJI_CAMERA_MANAGER_PHOTO_RATIO_5X4 = 5,
- *          E_DjiCameraManagerStreamSource streamSource[16];
- *              DJI_CAMERA_MANAGER_SOURCE_DEFAULT_CAM = 0x0,
- *              DJI_CAMERA_MANAGER_SOURCE_WIDE_CAM = 0x1,
- *              DJI_CAMERA_MANAGER_SOURCE_ZOOM_CAM = 0x2,
- *              DJI_CAMERA_MANAGER_SOURCE_IR_CAM = 0x3,
- *              DJI_CAMERA_MANAGER_SOURCE_VISIBLE_CAM = 0x7,
- *          E_DjiCameraManagerStreamStorage streamStorage[16];  // 同 E_DjiCameraManagerStreamSource
- *          E_DjiCameraManagerNightSceneMode nightSceneMode[16];
- *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_DISABLE = 0,
- *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_ENABLE = 1,
- * 
- *              DJI_CAMERA_MANAGER_NIGHT_SCENE_MODE_AUTO = 2,
- *      };
- *      uint32_t minValue;
- *      uint32_t maxValue;
+ * T_DjiCameraManagerRangeList  // 同 F_FocusRingRange_Get()
  */
 static void F_StreamStorageRange_Get()
 {
@@ -1117,6 +1101,8 @@ static void F_SynchronizedSplitScreenZoomEnabled_Set(bool enable)
 /**
  * 目录或文件的后缀名 - 设置
  *      注: 对于文件名, 该设置仅一次有效
+ * const uint8_t *nameStr   // 自定义后缀名的内容
+ * uint32_t nameSize    // 指示 nameStr 的大小, 该值必须在 1-239 范围内, 如果超出限制会将后缀名截断
  *
  * E_DjiCameraManagerExpandNameType
  *      DJI_CAMERA_MANAGER_EXPAND_NAME_TYPE_FILE = 1,
@@ -1129,10 +1115,6 @@ static void F_CustomExpandName_Set(E_DjiCameraManagerExpandNameType nameType, co
 
 /**
  * 最近目录或文件名的自定义后缀 - 获取
- *
- * E_DjiCameraManagerExpandNameType
- *      DJI_CAMERA_MANAGER_EXPAND_NAME_TYPE_FILE = 1,
- *      DJI_CAMERA_MANAGER_EXPAND_NAME_TYPE_DIR = 2,
  */
 static void F_CustomExpandName_Get()
 {
@@ -1171,7 +1153,7 @@ static void F_CustomExpandName_Get()
  *          T_DjiCameraManagerFileAttributeData attributeData;
  *          uint8_t subFileListTotalNum;
  *          T_DjiCameraManagerSubFileListInfo* subFileListInfo;
- *              char fileName[DJI_FILE_NAME_SIZE_MAX];
+ *              char fileName[DJI_FILE_NAME_SIZE_MAX];  // 同上
  *              uint32_t fileSize;
  *              uint32_t fileIndex;
  *              T_DjiCameraManagerFileCreateTime createTime;
@@ -1195,37 +1177,7 @@ static void F_DownloadFileList()
  *          DJI_CAMERA_MANAGER_FILE_LIST_COUNT_120_PER_SLICE = 120,
  *          DJI_CAMERA_MANAGER_FILE_LIST_COUNT_ALL_PER_SLICE = 0xFFFF,
  *
- * T_DjiCameraManagerFileList
- *      uint16_t totalCount;
- *      T_DjiCameraManagerFileListInfo *fileListInfo;
- *          char fileName[DJI_FILE_NAME_SIZE_MAX];  // DJI_FILE_NAME_SIZE_MAX 256
- *          uint32_t fileSize;
- *          uint32_t fileIndex;
- *          T_DjiCameraManagerFileCreateTime createTime;
- *              uint8_t second;
- *              uint8_t minute;
- *              uint8_t hour;
- *              uint8_t day;
- *              uint8_t month;
- *              uint16_t year;
- *          E_DjiCameraMediaFileType type;
- *              DJI_CAMERA_FILE_TYPE_JPEG    = 0,
- *              DJI_CAMERA_FILE_TYPE_DNG     = 1,
- *              DJI_CAMERA_FILE_TYPE_MOV     = 2,
- *              DJI_CAMERA_FILE_TYPE_MP4     = 3,
- *              DJI_CAMERA_FILE_TYPE_TIFF    = 5,
- *              DJI_CAMERA_FILE_TYPE_LDRT    = 24,
- *              DJI_CAMERA_FILE_TYPE_RPT     = 25,
- *              DJI_CAMERA_FILE_TYPE_UNKNOWN = 255,
- *          T_DjiCameraManagerFileAttributeData attributeData;
- *          uint8_t subFileListTotalNum;
- *          T_DjiCameraManagerSubFileListInfo* subFileListInfo;
- *              char fileName[DJI_FILE_NAME_SIZE_MAX];
- *              uint32_t fileSize;
- *              uint32_t fileIndex;
- *              T_DjiCameraManagerFileCreateTime createTime;
- *              E_DjiCameraMediaFileSubType type;
- *              T_DjiCameraManagerFileAttributeData attributeData;
+ * T_DjiCameraManagerFileList   // 同 F_DownloadFileList()
  */
 static void F_DownloadFileListBySlices()
 {
@@ -1237,6 +1189,16 @@ static void F_DownloadFileListBySlices()
 
 /**
  * 注册选定相机下载文件数据的回调
+ *
+ * T_DjiDownloadFilePacketInfo
+ *      E_DjiDownloadFileEvent downloadFileEvent;
+ *          DJI_DOWNLOAD_FILE_EVENT_START,
+ *          DJI_DOWNLOAD_FILE_EVENT_TRANSFER,
+ *          DJI_DOWNLOAD_FILE_EVENT_END,
+ *          DJI_DOWNLOAD_FILE_EVENT_START_TRANSFER_END,
+ *      uint32_t fileIndex;
+ *      uint32_t fileSize;
+ *      dji_f32_t progressInPercent;
  */
 T_DjiReturnCode F_ManagerDownloadFileData_Callback(T_DjiDownloadFilePacketInfo packetInfo, const uint8_t *data, uint16_t dataLen)
 {
@@ -1538,73 +1500,12 @@ T_DjiReturnCode F_Camera_Basic_Manage()
         USER_LOG_ERROR("初始化相机管理器失败, 错误编码: 0x%08X\r\n", returnCode);
     }
 
-    /**
-     * 设置或获取相机参数
-     *
-     * E_DjiCameraManagerISO
-     *       DJI_CAMERA_MANAGER_ISO_AUTO = 0x00, 自动设置 ISO 值并非所有相机的手动模式下可用
-     *       DJI_CAMERA_MANAGER_ISO_100 = 0x03, ISO 值设置为 100
-     *       DJI_CAMERA_MANAGER_ISO_200 = 0x04, ISO 值设置为 200
-     *       DJI_CAMERA_MANAGER_ISO_400 = 0x05, ISO 值设置为 400
-     *       DJI_CAMERA_MANAGER_ISO_800 = 0x06, ISO 值设置为 800
-     *       DJI_CAMERA_MANAGER_ISO_1600 = 0x07, ISO 值设置为 1600
-     *       DJI_CAMERA_MANAGER_ISO_3200 = 0x08, ISO 值设置为 3200
-     *       DJI_CAMERA_MANAGER_ISO_6400 = 0x09, ISO 值设置为 6400
-     *       DJI_CAMERA_MANAGER_ISO_12800 = 0x0A, ISO 值设置为 12800
-     *       DJI_CAMERA_MANAGER_ISO_25600 = 0x0B, ISO 值设置为 25600
-     *       DJI_CAMERA_MANAGER_ISO_FIXED = 0xFF, ISO 值由相机固件固定,当相机色彩设置为 D_LOG 时,相机将把 ISO 固定在一个特定的值以优化性能
-     */
     E_DjiCameraManagerISO getIso;
-    returnCode = DjiCameraManager_GetISO(mountPosition, &getIso);
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS && returnCode != DJI_ERROR_CAMERA_MANAGER_MODULE_CODE_UNSUPPORTED_COMMAND)
-    {
-        USER_LOG_ERROR("获得安装位置 %d 相机的iso失败, 错误编码: 0x%08X", mountPosition, returnCode);
-        return returnCode;
-    }
     E_DjiCameraManagerISO setIso;
     if (getIso == setIso)
     {
         USER_LOG_INFO("安装位置 %d 相机的iso已经是您所期望的", mountPosition);
         return DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS;
-    }
-    returnCode = DjiCameraManager_SetISO(mountPosition, setIso);
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS && returnCode != DJI_ERROR_CAMERA_MANAGER_MODULE_CODE_UNSUPPORTED_COMMAND)
-    {
-        USER_LOG_ERROR("设置安装位置 %d 相机的iso %d 失败, 错误码: 0x%08X", mountPosition, setIso, returnCode);
-    }
-
-    /**
-     * 控制相机执行指定的动作
-     *
-     * E_DjiCameraManagerShootPhotoMode
-     * - 单拍模式
-     *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_SINGLE = 0x01
-     *
-     * - HDR 模式, X5、X5R、XT、Z30、Phantom 4 Pro、X4S 和 X5S 相机不支持此模式
-     *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_HDR = 0x02
-     *
-     * - 连拍模式, XT 相机不支持
-     *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_BURST = 0x04
-     *
-     * - AEB 模式, 可快速拍摄多张（默认三张）不同曝光值的照片。XT 和 Z30 相机不支持
-     *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_AEB = 0x05
-     *
-     * - 定时拍摄模式, JPEG 的最小拍摄间隔为 2s, RAW 和 RAW+JPEG 的最小拍摄间隔为 10s, 部分机型的 RAW 和 RAW+JPEG 拍摄最小间隔为 5s
-     *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_INTERVAL = 0x06
-     *
-     * - RAW 连拍模式, 仅 X5S 摄像机支持
-     *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_RAW_BURST = 0x09
-     *
-     * - 区域拍摄模式, 支持 H20/H20T
-     *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_REGIONAL_SR = 0x16
-     *
-     * - 拍照模式未知
-     *      DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_UNKNOWN = 0xFF
-     */
-    returnCode = DjiCameraManager_StartShootPhoto(mountPosition, DJI_CAMERA_MANAGER_SHOOT_PHOTO_MODE_SINGLE);
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
-    {
-        USER_LOG_ERROR("安装位置 %d 相机拍摄照片失败, 错误码: 0x%08X", mountPosition, returnCode);
     }
 
     return returnCode;
