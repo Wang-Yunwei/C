@@ -6,8 +6,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "dji_logger.h"
-
-#include "ms_message subscription.h"
+#include "ms_message_subscription.h"
 
 /* Private types -------------------------------------------------------------*/
 
