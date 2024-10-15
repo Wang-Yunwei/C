@@ -5,6 +5,7 @@
  */
 
 /* Includes ------------------------------------------------------------------*/
+
 #include "dji_logger.h"
 #include "ms_message_subscription.h"
 
@@ -940,17 +941,28 @@ static T_DjiReturnCode F_BatterySingleInfoIndex2_Callback(const uint8_t *data, u
 }
 
 /**
- * 获取无人机上订阅项最新的数据和时间戳, 订阅失败时, 该接口将返回错误码
- *      注: 调用本接口时, 请指定订阅项, 以及相应的数据
- *
- * E_DjiFcSubscriptionTpic topicName:   // 订阅项的名称
- * uint8_t *data:                       // 请正确地指向用于存储订阅项数据的存储空间, 否则, 本接口将返回错误码
- * uint16_t dataSizeOfTopic:            // 请正确地指向用于存储订阅项数据的存储空间, 正常情况下, 该数值与订阅项的长度相同, 否则可能会导致内存溢出等问题
- * T_DjiDataTimestamp timestamp:        //请正确地指向用于存储时间戳的内存空间, 否则, 本接口将返回错误码或出现内存溢出等问题, 若无需获取时间戳, 则该参数可为空, 返回值
+ * 消息订阅功能初始化, 并开始执行消息订阅功能
+ *      注: 1、在使用消息订阅功能订阅无人机上的信息前，请先使用本接口初始化消息订阅功能;
+ *          2、请勿在 main() 函数中调用本接口, 请在用户线程中调用本接口, 启动调度器后, 该接口将正常运行;
+ *          3、本接口执行时间可能会超过 500ms;
  */
-static void F_GetLatestValueOfTopic(E_DjiFcSubscriptionTopic topic, uint8_t *data, uint16_t dataSizeOfTopic, T_DjiDataTimestamp *timestamp)
+static void F_Init()
 {
-    T_DjiReturnCode returnCode = DjiFcSubscription_GetLatestValueOfTopic(topic, data, dataSizeOfTopic, timestamp);
+    T_DjiReturnCode returnCode = DjiFcSubscription_Init();
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("初始化数据订阅模块失败, 错误编码: 0x%08X\r\n", returnCode);
+        return DJI_ERROR_SYSTEM_MODULE_CODE_UNKNOWN;
+    }
+}
+
+/**
+ * 释放消息订阅功能, 在无需使用消息订阅功能时, 可调用本接口释放消息订阅功能
+ *      注: 释放消息订阅功能后, 无人机中被占用的资源也将释放
+ */
+static void F_DeInit()
+{
+    T_DjiReturnCode returnCode = DjiFcSubscription_DeInit();
 }
 
 /**
@@ -974,31 +986,21 @@ static void F_SubscribeTopic(E_DjiFcSubscriptionTopic topic, E_DjiDataSubscripti
 }
 
 /**
- * 释放消息订阅功能, 在无需使用消息订阅功能时, 可调用本接口释放消息订阅功能
- *      注: 释放消息订阅功能后, 无人机中被占用的资源也将释放
+ * 获取无人机上订阅项最新的数据和时间戳, 订阅失败时, 该接口将返回错误码
+ *      注: 调用本接口时, 请指定订阅项, 以及相应的数据
+ *
+ * E_DjiFcSubscriptionTpic topicName:   // 订阅项的名称
+ * uint8_t *data:                       // 请正确地指向用于存储订阅项数据的存储空间, 否则, 本接口将返回错误码
+ * uint16_t dataSizeOfTopic:            // 请正确地指向用于存储订阅项数据的存储空间, 正常情况下, 该数值与订阅项的长度相同, 否则可能会导致内存溢出等问题
+ * T_DjiDataTimestamp timestamp:        //请正确地指向用于存储时间戳的内存空间, 否则, 本接口将返回错误码或出现内存溢出等问题, 若无需获取时间戳, 则该参数可为空, 返回值
  */
-static void F_DeInit()
+static void F_GetLatestValueOfTopic(E_DjiFcSubscriptionTopic topic, uint8_t *data, uint16_t dataSizeOfTopic, T_DjiDataTimestamp *timestamp)
 {
-    T_DjiReturnCode returnCode = DjiFcSubscription_DeInit();
-}
-
-/**
- * 消息订阅功能初始化, 并开始执行消息订阅功能
- *      注: 1、在使用消息订阅功能订阅无人机上的信息前，请先使用本接口初始化消息订阅功能;
- *          2、请勿在 main() 函数中调用本接口, 请在用户线程中调用本接口, 启动调度器后, 该接口将正常运行;
- *          3、本接口执行时间可能会超过 500ms;
- */
-static void F_Init()
-{
-    T_DjiReturnCode returnCode = DjiFcSubscription_Init();
-    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
-    {
-        USER_LOG_ERROR("初始化数据订阅模块失败, 错误编码: 0x%08X\r\n", returnCode);
-        return DJI_ERROR_SYSTEM_MODULE_CODE_UNKNOWN;
-    }
+    T_DjiReturnCode returnCode = DjiFcSubscription_GetLatestValueOfTopic(topic, data, dataSizeOfTopic, timestamp);
 }
 
 /* Exported functions definition ---------------------------------------------*/
+
 T_DjiReturnCode F_Message_Subscription()
 {
 

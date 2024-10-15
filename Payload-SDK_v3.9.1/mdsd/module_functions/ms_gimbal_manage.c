@@ -130,4 +130,5 @@ static void F_RestoreFactorySettings()
 /* Exported functions definition ---------------------------------------------*/
 T_DjiReturnCode F_Gimbal_Manage()
 {
+    
 }
