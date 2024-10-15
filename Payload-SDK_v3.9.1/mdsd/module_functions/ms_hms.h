@@ -1,17 +1,14 @@
 /**
  * ********************************************************************
- * Created by WangYunwei [2024-10-15] 电源管理
+ * Created by WangYunwei [2024-10-15] HMS 功能
  * ********************************************************************
  */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef MS_POWER_MANAGE_H
-#define MS_POWER_MANAGE_H
+#ifndef MS_HMS_H
+#define MS_HMS_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "dji_logger.h"
-#include "dji_typedef.h"
-#include "dji_power_management.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -26,7 +23,7 @@ typedef struct
 /* Exported constants --------------------------------------------------------*/
 
 /* Exported functions --------------------------------------------------------*/
-T_DjiReturnCode F_Power_Manage();
+T_DjiReturnCode F_Hms();
 
 #ifdef __cplusplus
 }
