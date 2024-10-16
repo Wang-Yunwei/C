@@ -29,17 +29,34 @@
 static void F_Init()
 {
     T_DjiReturnCode returnCode = DjiTimeSync_Init();
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS)
+    {
+        USER_LOG_ERROR("时间同步模块初始化错误!");
+    }
 }
 
 /**
  * 获取最新的时间戳
  *      注: 注册回调函数, 用于在检测到 PPS 上升沿信号时获取本地时间系统中的最新时间戳
  */
-T_PsdkReturnCode F_GetNewestPpsTriggerLocalTimeUs_Callback(uint64_t *localTimeUs){
-
+T_PsdkReturnCode F_GetNewestPpsTriggerLocalTimeUs_Callback(uint64_t *localTimeUs)
+{
 }
-static void F_RegGetNewestPpsTriggerTimeCallback(){
+static void F_RegGetNewestPpsTriggerTimeCallback()
+{
     T_DjiReturnCode returnCode = DjiTimeSync_RegGetNewestPpsTriggerTimeCallback(F_GetNewestPpsTriggerLocalTimeUs_Callback);
+}
+
+/**
+ * 时间转换
+ *      注: 将负载设备的本地时间转换为无人机上的时间
+ *          在使用本接口时, 请调用PsdkTimeSync_RegGetNewestPpsTriggerTimeCallback() 注册用于获取负载设备检测到PPS 信号上升沿时, 负载设备本地最新的时间戳的回调函数
+ */
+static void F_TransferToAircraftTime()
+{
+    uint64_t localTimeUs; // 负载设备中的本地时间, 单位: 微秒
+    T_DjiTimeSyncAircraftTime aircraftTime; // 指向用于存储无人机系统时间的内存空间
+    T_DjiReturnCode returnCode = DjiTimeSync_TransferToAircraftTime(localTimeUs, &aircraftTime);
 }
 
 /* Exported functions definition ---------------------------------------------*/
