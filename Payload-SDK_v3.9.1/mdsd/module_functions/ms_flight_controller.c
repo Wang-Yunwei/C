@@ -310,7 +310,7 @@ static void F_HomeLocationUsingCurrentAircraftLocation_Set()
  * 返航高度 - 设置
  *      注: 如果无人机的当前高度高于返航高度的设置值, 无人机将使用当前高度返航, 否则它将爬升到返航高度的设置, 然后执行返航操作, 返航高度设置为 20m ~ 1500m
  *
- * E_DjiFlightControllerGoHomeAltitude altitude: //单位: 米,量程20~500
+ * E_DjiFlightControllerGoHomeAltitude altitude: //单位: 米
  */
 static void F_GoHomeAltitude_Set(E_DjiFlightControllerGoHomeAltitude altitude)
 {
