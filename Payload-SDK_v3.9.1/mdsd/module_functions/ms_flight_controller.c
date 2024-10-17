@@ -308,7 +308,7 @@ static void F_HomeLocationUsingCurrentAircraftLocation_Set()
 
 /**
  * 返航高度 - 设置
- *      注: 如果无人机的当前高度高于返航高度的设置值，无人机将使用当前高度返航。否则，它将爬升到返航高度的设置，然后执行返航操作。返航高度设置为20m ~ 1500m
+ *      注: 如果无人机的当前高度高于返航高度的设置值, 无人机将使用当前高度返航, 否则它将爬升到返航高度的设置, 然后执行返航操作, 返航高度设置为 20m ~ 1500m
  *
  * E_DjiFlightControllerGoHomeAltitude altitude: //单位: 米,量程20~500
  */
@@ -338,7 +338,7 @@ static void F_CountryCode_Get()
 }
 
 /**
- * 当无人机在空中时，请求返航动作
+ * 请求返航动作 - 当无人机在空中时
  */
 static void F_StartGoHome()
 {
@@ -346,7 +346,7 @@ static void F_StartGoHome()
 }
 
 /**
- * 在无人机返航时, 请求取消返航动作
+ * 请求取消返航动作 - 在无人机返航时
  */
 static void F_CancelGoHome()
 {
@@ -355,7 +355,7 @@ static void F_CancelGoHome()
 
 /**
  * 获取无人机的摇杆控制权限
- *      注: 使用摇杆控制无人机之前，必须成功获取摇杆控制权限，遥控器必须处于 P 档;
+ *      注: 使用摇杆控制无人机之前, 必须成功获取摇杆控制权限, 遥控器必须处于 P 档;
  *          在调用飞行器控制接口之前, 需要先调用 DjiFlightController_ObtainJoystickCtrlAuthority 接口来获取飞行器的控制权, 在飞行器控制权生效前, 飞行器控制命令接口将无法生效;
  */
 static void F_ObtainJoystickCtrlAuthority()
@@ -370,15 +370,21 @@ static void F_ObtainJoystickCtrlAuthority()
 static void F_ReleaseJoystickCtrlAuthority()
 {
     T_DjiReturnCode returnCode = DjiFlightController_ReleaseJoystickCtrlAuthority();
+    if (returnCode != DJI_ERROR_SYSTEM_MODULE_CODE_SUCCESS) {
+    USER_LOG_ERROR("释放操纵杆权限失败, 错误码: 0x%08X", returnCode);
+}
 }
 
 /**
  * 使用回调函数订阅摇杆控制权限切换事件
  *      注: 当摇杆控制权限切换事件发生时, 将触发此函数
  */
+static T_DjiReturnCode F_JoystickCtrlAuthorityEventCbFunc_Callback(T_DjiFlightControllerJoystickCtrlAuthorityEventInfo eventData)
+{
+}
 static void F_RegJoystickCtrlAuthorityEventCallback()
 {
-    T_DjiReturnCode returnCode = DjiFlightController_RegJoystickCtrlAuthorityEventCallback(NULL);
+    T_DjiReturnCode returnCode = DjiFlightController_RegJoystickCtrlAuthorityEventCallback(F_JoystickCtrlAuthorityEventCbFunc_Callback);
 }
 
 /**
@@ -405,7 +411,7 @@ static void F_ExecuteEmergencyBrakeAction()
 
 /**
  * 请求取消紧急制动动作
- *      注: 仅在M30上支持。如果使用了 DjiFlightController_ExecuteEmergencyBrakeAction()，则需要使 DjiFlightController_CancelEmergencyBrakeAction() 以允许无人机再次执行动作
+ *      注: 仅在M30上支持, 如果使用了 DjiFlightController_ExecuteEmergencyBrakeAction(),则需要使 DjiFlightController_CancelEmergencyBrakeAction() 以允许无人机再次执行动作
  */
 static void F_CancelEmergencyBrakeAction()
 {
@@ -424,8 +430,15 @@ static void F_GetGeneralInfo()
 }
 
 /**
- * 该命令决定PSDK运行时是否执行RC丢失操作 - 设置
- *      注: 此设置仅在遥控器丢失且 OSDK 连接时影响无人机的行为。 如果命令为启用，当遥控器丢失但OSDK正在运行时，无人机不会执行遥控器丢失的操作； 如果命令为禁用，当遥控器丢失但OSDK正在运行时，无人机会执行遥控器丢失的操作； 当遥控器和OSDK都丢失时，无人机将执行遥控器丢失的操作，无论命令为何。 默认命令为禁用。
+ * 丢失动作启用状态 - 设置
+ *      注: 此设置仅在遥控器丢失且 OSDK 连接时影响无人机的行为;
+ *          - 如果命令为 (启用), 当遥控器丢失但 OSDK 正在运行时, 无人机不会执行遥控器丢失的操作;
+ *          - 如果命令为 (禁用), 当遥控器丢失但 OSDK 正在运行时, 无人机会执行遥控器丢失的操作;
+ *          - 当遥控器和 OSDK 都丢失时, 无人机将执行遥控器丢失的操作, 无论命令为何, 默认命令为禁用;
+ *
+ * E_DjiFlightControllerRCLostActionEnableStatus
+ *      DJI_FLIGHT_CONTROLLER_ENABLE_RC_LOST_ACTION = 0,    // 启用
+ *      DJI_FLIGHT_CONTROLLER_DISABLE_RC_LOST_ACTION = 1,   // 禁用
  */
 static void F_RCLostActionEnableStatus_Set(E_DjiFlightControllerRCLostActionEnableStatus command)
 {
@@ -433,7 +446,7 @@ static void F_RCLostActionEnableStatus_Set(E_DjiFlightControllerRCLostActionEnab
 }
 
 /**
- *
+ * 丢失动作启用状态 - 获取
  */
 static void F_EnableRCLostActionStatus_Get()
 {
@@ -443,11 +456,17 @@ static void F_EnableRCLostActionStatus_Get()
 
 /**
  * 注册回调函数触发 FTS 事件
- *      注: FTS 的触发时机由飞行器决定, FTS 的触发执行动作需要在回调函数中实现, 并且必须返回正确的返回值, 否则飞行器将会持续被触发
+ *      注: FTS 的触发时机由飞行器决定, FTS 的触发执行动作需要在回调函数中实现, 并且必须返回正确的返回值, 否则飞行器将会持续被触发;
+ *          FTS 即飞行终止系统 (Flight Termination System),是在飞行出现安全隐患时主动强制停止飞行并独立于飞行器自身控制系统的一套设备和软件;
+ *          - 飞行安全保障, 当飞行器遇到严重安全隐患或失控时, FTS可以主动或被动触发, 使飞行器执行紧急降落或停止飞行等动作, 以保障飞行安全;
+ *          - 飞行区域限制, FTS可以与飞行器的地理围栏功能相结合, 当飞行器飞出预设的飞行区域时, FTS会触发并执行相应的安全措施;
  */
+static T_DjiReturnCode F_TriggerFtsEvent_Callback(void)
+{
+}
 static void F_RegTriggerFtsEventCallback()
 {
-    T_DjiReturnCode returnCode = DjiFlightController_RegTriggerFtsEventCallback(TriggerFtsEventCallback callback);
+    T_DjiReturnCode returnCode = DjiFlightController_RegTriggerFtsEventCallback(F_TriggerFtsEvent_Callback);
 }
 
 /* Exported functions definition ---------------------------------------------*/
